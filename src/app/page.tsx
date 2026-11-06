@@ -1,1 +1,1 @@
-export { default, metadata } from "./postmarked/page";
+export { default, metadata } from "./bedroom-floor/page";
