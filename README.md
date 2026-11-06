@@ -32,6 +32,8 @@ This is a designed foundation, not the complete feature brief. There are no inve
 
 ## The next build
 
+**[Compare the three coded design directions](docs/DESIGN-DIRECTIONS.md).** Postmarked, Yours (`/postmarked`), Bedroom Floor (`/bedroom-floor`), and The Blue Book (`/blue-book`) each have a separate branch homepage and custom scoped styles. Every preview includes footer links to all three routes.
+
 **[Read the detailed design and implementation prompt](docs/DESIGN-PROMPT.md).** It describes each proposed feature, its purpose, its visual treatment, behaviour, content requirements, and acceptance criteria.
 
 **[Read the asset inventory](docs/ASSETS.md)** before replacing or using the images elsewhere. Two photos are crops from the supplied Instagram screenshot, not downloaded original posts. The artist-supplied portrait is the strongest available image.
@@ -40,8 +42,11 @@ This is a designed foundation, not the complete feature brief. There are no inve
 
 | Path | Purpose |
 | --- | --- |
-| `src/app/page.tsx` | Homepage composition and editable draft copy |
-| `src/app/globals.css` | Design tokens, paper treatments, responsive layouts |
+| `src/app/page.tsx` | Selects the branch's default homepage |
+| `src/app/postmarked/` | Airmail postcard direction and scoped CSS |
+| `src/app/bedroom-floor/` | Music zine direction and scoped CSS |
+| `src/app/blue-book/` | Open notebook direction and scoped CSS |
+| `src/app/globals.css` | Shared reset, accessible controls, player and comparison navigation |
 | `src/app/signature.css` | Signature reveal and motion preference handling |
 | `src/components/signature.tsx` | SVG artwork and approximate pen-path mask |
 | `src/components/spotify-player.tsx` | Small client island for the optional embed |
