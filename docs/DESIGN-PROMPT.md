@@ -1,5 +1,7 @@
 # Lourdes Martín — detailed design and implementation prompt
 
+> Historical first-pass brief. The 2026-11-09 review in `DESIGN-REVIEW.md` supersedes its placeholder copy, broad-mask logo animation and decorative feature choices. The current site is bilingual, Spanish-first, and uses verified track data and the supplied concert archive.
+
 Use this as the brief for the next design/build pass. The existing repository is the foundation; continue it instead of replacing it with a generic template. The instructions below distinguish the starter already built from conditional features that need artist content.
 
 ## 1. Your role and the standard of work
