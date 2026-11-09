@@ -1,0 +1,35 @@
+.world { --ink:#294d79; color:var(--ink); background:#e5ac90; overflow:clip; }
+.header { max-width:1280px; margin:auto; padding:24px 50px; display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.home { font:italic 29px Georgia,serif; text-decoration:none; }
+.navigation { display:flex; gap:35px; align-items:center; }
+.navigation > nav:first-child { display:flex; gap:26px; font-size:13px; }
+.navigation > nav:first-child a { padding:12px 0; text-decoration:none; }
+.arrival { max-width:1280px; margin:12px auto 0; padding:10px 50px 46px; }
+.postcard { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:7%; background:#f9f4e8; padding:50px 55px; position:relative; transform:rotate(-.6deg); box-shadow:1px 8px 18px #78492520; }
+.postcard::before { content:''; position:absolute; top:0; bottom:0; left:0; width:7px; background:repeating-linear-gradient(140deg,#aa4e40 0 12px,#f9f4e8 12px 24px,#294d79 24px 36px,#f9f4e8 36px 48px); }
+.micro { font:10px/1.5 var(--font-sans),sans-serif; letter-spacing:1px; }
+.signature { width:min(100%,330px); margin:19px 0 36px -5px; }
+.release { border-top:1px solid #294d7930; padding-top:25px; }
+.title { font:clamp(35px,4.1vw,57px)/1.06 Georgia,serif; letter-spacing:-1.8px; font-weight:400; margin:15px 0 26px; }
+.listen { display:flex; width:fit-content; align-items:center; gap:36px; font-size:13px; text-decoration:none; border-bottom:1px solid; padding:9px 0; }
+.listen:hover { opacity:.7; }
+.cover { transform:rotate(2deg); background:#fefbf3; padding:11px 11px 17px; box-shadow:2px 3px 7px #6d54252b; }
+.cover img { display:block; width:100%; height:auto; }
+.cover figcaption { display:flex; justify-content:space-between; gap:12px; font:18px var(--font-handwriting),cursive; padding:15px 4px 0; }
+.marginNote { font:24px/1.2 var(--font-handwriting),cursive; margin:28px 0 0 20px; max-width:440px; transform:rotate(-2deg); }
+.music { background:#f9f4e8; display:grid; grid-template-columns:.8fr 1.2fr; gap:10%; padding:75px max(8vw,28px); align-items:start; }
+.musicCopy { justify-self:end; width:100%; max-width:340px; }
+.musicCopy h2 { font:53px/1.1 Georgia,serif; letter-spacing:-1.5px; font-weight:400; margin:17px 0 35px; }
+.acoustic { width:210px; margin-left:30px; transform:rotate(-4deg); background:#f0e4cd; padding:9px 9px 14px; box-shadow:1px 3px 7px #30211418; }
+.acoustic img { width:100%; height:auto; display:block; }
+.acoustic figcaption { font:23px var(--font-handwriting),cursive; text-align:center; padding-top:10px; }
+.letter { width:100%; max-width:540px; padding:19px 0 0; }
+.memories { background:#e9d9c1; padding:66px 7vw 55px; }
+.archiveIntro { max-width:960px; margin:auto; }
+.archiveIntro h2 { font:47px/1.1 Georgia,serif; font-weight:400; letter-spacing:-1px; margin:18px 0; }
+.archiveIntro p { font-size:13px; line-height:1.7; max-width:400px; }
+.footer { max-width:1180px; margin:auto; display:flex; align-items:center; gap:35px; padding:37px 24px; font-size:12px; }
+.footer p { font:29px var(--font-handwriting),cursive; margin-right:auto; }
+@media(min-width:1600px) { .music { padding-left:calc((100vw - 1140px)/2); padding-right:calc((100vw - 1140px)/2); gap:100px; } }
+@media(max-width:900px) { .header { padding:22px 30px; } .arrival { padding:10px 30px 40px; } .postcard { padding:35px; gap:6%; } .signature { margin-bottom:26px; } .cover figcaption { font-size:16px; } .music { gap:8%; padding:60px 6vw; } }
+@media(max-width:700px) { .header { padding:18px 22px; flex-wrap:wrap; gap:10px; } .home { font-size:26px; } .navigation { width:100%; justify-content:space-between; gap:15px; } .navigation > nav:first-child { font-size:12px; gap:24px; } .arrival { margin:0; padding:5px 22px 35px; } .postcard { grid-template-columns:1fr; gap:30px; padding:28px 27px 30px; } .micro { font-size:9px; } .signature { width:255px; margin:18px 0 25px; } .release { padding-top:19px; } .title { font-size:43px; letter-spacing:-1.1px; margin:13px 0 18px; } .listen { font-size:12px; } .cover { width:94%; justify-self:center; } .cover figcaption { font-size:18px; } .marginNote { font-size:23px; margin:24px 7px 0; } .music { grid-template-columns:1fr; padding:42px 27px 48px; gap:28px; } .musicCopy { max-width:none; display:grid; grid-template-columns:1fr 120px; align-items:start; } .musicCopy h2 { font-size:43px; margin:18px 0; } .musicCopy .micro { grid-column:1; } .acoustic { width:115px; margin:0; grid-column:2; grid-row:1/3; padding:6px 6px 10px; } .acoustic figcaption { font-size:18px; padding-top:5px; } .letter { padding-top:0; max-width:none; } .memories { padding:42px 27px; } .archiveIntro h2 { font-size:38px; } .archiveIntro p { font-size:12px; } .footer { padding:28px 25px; flex-wrap:wrap; gap:22px; } .footer p { width:100%; } }
