@@ -27,7 +27,7 @@ Extraction method: crop the cream poster at `{ left: 230, top: 230, width: 610, 
 
 This is a vector trace of a raster reference, not the artist's original vector master. It preserves the supplied letterforms, their stack, and the accent. Small edges inherit the quality of the poster. Replace the trace with the original master if the artist has one. Do not silently substitute a script font.
 
-Animation: the actual foreground outline is revealed by three approximate broad pen gestures using an SVG mask and stroke-dashoffset. A final mask fill ensures the entire mark remains visible. It is a first-pass handwriting effect, **not a recovered authentic pen trajectory**. Broad masks can reveal adjacent strokes early. The detailed prompt describes hand-tuning separate stroke masks for the final production motion. The default/static and reduced-motion render is complete; the animation never gates navigation or music.
+Current rendering (2026-11-09): the signature is static. The previous approximate broad-mask reveal exposed adjacent letters and did not match an actual pen trajectory; it was removed during the design review. The traced letterforms, accent and counters are retained. A future animated version needs carefully traced centreline masks and visual review, not another broad reveal over the entire wordmark.
 
 The wordmark has a 610 × 360 viewBox. Scale proportionally and keep surrounding space of roughly one lowercase letter height. Prefer at least 180 CSS pixels wide for the complete two-line mark. At favicon size, use the portrait, not the unreadable full signature.
 
@@ -59,7 +59,21 @@ All use the provided square photo with proportional resizing and no new image co
 - `public/brand/paper-grain.svg`: lightweight code-native SVG noise tile.
 - Tape, paper, notebook rules, shadows, and stickers: custom CSS. Curved arrows: small inline SVGs. Decorative marks are hidden from assistive technology.
 
-No stock photos, fabricated album art, generated people, or remote image hotlinks are part of the base.
+No stock photos, fabricated album art, generated people, or remote image hotlinks are part of the site.
+
+## Verified music and archive additions — 2026-11-09
+
+The [official artist embed](https://open.spotify.com/embed/artist/246Ag05j7yjMUiIAMJ70A7) supplied five track titles, exact Spotify track IDs and durations. They are stored in `src/lib/music.ts`. These are a dated catalogue selection, not a dynamically maintained ranking. Song titles stay in their published Spanish spelling in both languages.
+
+The [official track embed](https://open.spotify.com/embed/track/2mvtMnxyRxaSTgcYTV8JIe) confirms the featured track title `antes moría por verte`, release date 2026-07-24, and artwork. The artwork is the same photograph as the separately supplied portrait, with the official cover crop. The page labels it as a featured track, not a claim that it is the latest release.
+
+| File | Provenance | Use |
+| --- | --- | --- |
+| `public/images/antes-moria-por-verte.webp` | [640-pixel artwork from Spotify's CDN](https://image-cdn-fa.spotifycdn.com/image/ab67616d0000b2735d018f85b3d2ca8e9f3b0ecb), converted to WebP | Featured track artwork, 640 × 640 |
+| `public/images/poster-volander.webp` | Supplied `IMG_5176.png`, proportional resize to width 726 | Historical concert archive, correctly dated 15 May 2023 |
+| `public/images/poster-movida.webp` | Supplied second concert poster, proportional resize to width 800 | Historical concert archive, labelled venue/city only because its year is not verified |
+
+The full posters are kept intact, including their original Spanish lettering and historical event details. Both are clearly labelled as archive material, with links to view the full image. Their artwork is not translated; their alternative text and surrounding captions are. These additions are committed assets and do not require a runtime connection to Spotify's image CDN. The original `assets:prepare` script regenerates the earlier base assets only; it does not fetch the Spotify catalogue or overwrite these additions.
 
 ## Regeneration
 

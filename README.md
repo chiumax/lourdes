@@ -1,78 +1,61 @@
 # Lourdes Martín
 
-A Next.js foundation for a personal acoustic-pop artist website, with a custom paper-and-photo scrapbook design. Prepared from the references supplied for this project.
+Three custom Next.js artist-site directions, with Spanish and English content, verified Spotify songs and a concert-poster archive.
 
-## Run locally
+## Development
 
-Requires Node.js 20.9 or newer (Node 24 used during setup).
+Node.js 20.9 or newer. Node 24 was used during preparation.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. For a production preview:
+Open http://localhost:3000. The first visit redirects to Spanish (`/es`). Use ES / EN in the header to switch language. The choice remains in the URL and is remembered for future visits to unprefixed entry points.
 
-```sh
-npm run build
-npm start
-```
+## Designs and branches
 
-## What is implemented
+| Direction | Branch | Local route |
+| --- | --- | --- |
+| Postmarked, Yours | `design/postmarked-yours` | `/es/postmarked` or `/en/postmarked` |
+| Bedroom Floor | `design/bedroom-floor` | `/es/bedroom-floor` or `/en/bedroom-floor` |
+| The Blue Book | `design/the-blue-book` | `/es/blue-book` or `/en/blue-book` |
 
-- Next.js App Router, React, strict TypeScript, custom CSS, and locally hosted fonts.
-- Responsive signature-led introduction, music section, and compact photo scrapbook.
-- Extracted SVG wordmark in rose, ink, and original poster colours, plus a transparent PNG.
-- An approximate handwriting reveal over the actual traced signature; reduced-motion users see the complete wordmark immediately.
-- Spotify and Instagram links, and an explicitly loaded Spotify artist embed with a persistent fallback link. Audio never starts automatically on page load.
-- Optimized local WebP photos and photo-based favicons in ICO, PNG, and Apple touch formats.
-- Semantic landmarks, skip link, keyboard focus indicators, image descriptions, and metadata.
+Each branch's `/es` and `/en` routes select its own design using `src/lib/default-concept.ts`. Every preview also contains the other two routes for comparison. The existing Vercel Git integration deploys branch previews; production uses `main`.
 
-This is a designed foundation, not the complete feature brief. There are no invented songs, tour dates, press quotes, booking addresses, sign-up forms, or unfinished navigation targets. Display copy and English language are provisional creative choices for Lourdes to review.
+Read [the design review](docs/DESIGN-REVIEW.md) for what was removed, changed and retained after the initial review. [The direction overview](docs/DESIGN-DIRECTIONS.md) summarizes their current identities. The [original long-form prompt](docs/DESIGN-PROMPT.md) is retained as a historical brief.
 
-## The next build
+## Content
 
-**[Compare the three coded design directions](docs/DESIGN-DIRECTIONS.md).** Postmarked, Yours (`/postmarked`), Bedroom Floor (`/bedroom-floor`), and The Blue Book (`/blue-book`) each have a separate branch homepage and custom scoped styles. Every preview includes footer links to all three routes.
+- `src/lib/i18n.ts`: typed Spanish/English dictionary for copy, navigation, alt text, metadata and controls.
+- `src/lib/music.ts`: five verified Spotify tracks and featured artwork/date; catalogue titles are not translated.
+- `src/lib/artist.ts`: artist identity and social destinations.
+- `src/designs/`: three server-rendered compositions with scoped CSS.
+- `src/app/[lang]/`: localized root layout and pages, including document language and metadata.
+- `src/proxy.ts`: redirects only unprefixed legacy entry points, using the explicit saved language preference.
+- `src/components/language-switch.tsx`: real language links with cookie, hash and query preservation.
+- `src/components/spotify-player.tsx`: an optional, translated player; no Spotify iframe loads before activation.
+- `public/`: committed artwork, optimized photos, original poster derivatives, favicons and licensed local fonts.
 
-**[Read the detailed design and implementation prompt](docs/DESIGN-PROMPT.md).** It describes each proposed feature, its purpose, its visual treatment, behaviour, content requirements, and acceptance criteria.
+See [the asset inventory](docs/ASSETS.md) for provenance and limitations. Two guitar photographs remain provisional screenshot crops. Posters are historical archive items, not upcoming events. The traced signature is now static: the previous broad-mask animation was removed because it did not follow actual handwriting.
 
-**[Read the asset inventory](docs/ASSETS.md)** before replacing or using the images elsewhere. Two photos are crops from the supplied Instagram screenshot, not downloaded original posts. The artist-supplied portrait is the strongest available image.
-
-## Project map
-
-| Path | Purpose |
-| --- | --- |
-| `src/app/page.tsx` | Selects the branch's default homepage |
-| `src/app/postmarked/` | Airmail postcard direction and scoped CSS |
-| `src/app/bedroom-floor/` | Music zine direction and scoped CSS |
-| `src/app/blue-book/` | Open notebook direction and scoped CSS |
-| `src/app/globals.css` | Shared reset, accessible controls, player and comparison navigation |
-| `src/app/signature.css` | Signature reveal and motion preference handling |
-| `src/components/signature.tsx` | SVG artwork and approximate pen-path mask |
-| `src/components/spotify-player.tsx` | Small client island for the optional embed |
-| `src/lib/artist.ts` | Supplied artist identity and destination links |
-| `public/brand/` | Vector wordmarks and paper grain |
-| `public/images/` | Runtime photo derivatives |
-| `public/fonts/` | Self-hosted font files and licenses |
-| `scripts/prepare-assets.mjs` | Reproducible local asset extraction |
-
-The site does not require the original `.context` attachments at runtime or to build. They are gitignored. `npm run assets:prepare` is only for regenerating the committed assets in this original workspace; a fresh clone without the source attachments should use the already committed assets.
-
-## Checks
+## Validation
 
 ```sh
 npm run lint
-npm run typecheck
 npm run build
-npm audit
+npm run typecheck
+npm start
 ```
 
-Build, lint, type checking, and dependency audit passed during preparation. The homepage also returned HTTP 200 in local development. The generated logo and photo derivatives were visually inspected. **Browser visual, responsive, and interactive QA remains outstanding:** browser control was stopped during preview. Before public launch, complete the manual checklist in the design prompt, especially small screens, signature timing, keyboard navigation, and real Spotify playback.
+With the production server running, in another terminal:
 
-The two scoped dependency overrides keep development-only transitive dependencies on patched versions. The lockfile is committed. Neither tracing tools nor lint tooling ships in the client bundle.
+```sh
+EXPECTED_CONCEPT=postmarked npm run check:site
+```
 
-## Deployment
+Use `bedroom-floor` or `blue-book` for the other branches. Optionally set `SITE_URL` to a different accessible server address. The integration checks cover all eight localized pages, metadata, language-switch destinations, real track links, local assets, anchor targets, redirects, preference cookies and 404s. They do not substitute for browser visual or interaction QA. Browser navigation was unavailable during the latest review; see the review document for outstanding checks.
 
-Use any Node-compatible Next.js host, with `npm run build` and `npm start`, or import the Git repository into a Next.js-aware host. This task prepares and pushes source to GitHub; it does not provision hosting or a domain. No environment variables are needed for this starter. Add the final canonical domain and social-sharing image metadata once the destination is known.
+All runtime assets are committed. The gitignored `.context` source attachments are not required for a fresh build. `npm run assets:prepare` regenerates the initial extracted logo, photos and icons only when the original attachments are present; later Spotify artwork and archive derivatives are documented separately in the asset inventory.
 
-Shadcn is intentionally not installed: this base has no dialog, form, or menu that needs it. Introduce its primitives when a real interaction calls for them, and give them the site's custom styling.
+No secrets or environment variables are required. On Vercel, metadata uses the deployment hostname provided by `VERCEL_URL`; local development falls back to localhost. Spanish and English alternate URLs are emitted for each design. Font licenses are included. Shadcn is not installed because the current controls are adequately served by native links, buttons and disclosure elements.
