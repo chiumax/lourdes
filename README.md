@@ -17,7 +17,7 @@ Node 20.9+ is required. Open http://localhost:3000; the public entry is Spanish.
 | Amplificador — charcoal and acid-yellow gig poster | `/es/amplificador` |
 | Recortes — torn magazine collage | `/es/recortes` |
 
-The page's version bar links all three. English reference routes are available at `/en`, `/en/tinta`, `/en/amplificador` and `/en/recortes`. They are retained for Rafa's copy work; the public site currently has no language switch. Old design paths redirect to the new variations.
+Tinta is the selected direction and opens directly on its animated signature hero, without a header or version bar. Its music section loads Spotify immediately inside the paper panel. The other two variations retain their comparison bars and deferred players. English reference routes are available at `/en`, `/en/tinta`, `/en/amplificador` and `/en/recortes`. They are retained for Rafa's copy work; the public site currently has no language switch. Old design paths redirect to the new variations.
 
 ## Editing
 

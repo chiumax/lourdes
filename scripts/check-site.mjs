@@ -7,12 +7,13 @@ const legacyConcepts = { postmarked: "tinta", "bedroom-floor": "amplificador", "
 const trackIds = ["2mvtMnxyRxaSTgcYTV8JIe", "4SK5CTgzKEBu7pcsSjbqGs", "6c7xGiUPfB8iDrfQ9NJcxz", "7Io1Ws8fngOaPx6HTSKgkW", "2PFr2WppXicoSHknhx9yDS"];
 const checkedAssets = new Set();
 const copy = {
-  es: { title: "Música", skip: "Saltar al contenido", songs: "Canciones", photos: "Entre canciones", pause: "Pausar animación" },
-  en: { title: "Music", skip: "Skip to content", songs: "Songs", photos: "Between songs", pause: "Pause animation" },
+  es: { title: "Música", skip: "Saltar al contenido", songs: "Canciones", photos: "Entre canciones", pause: "Pausar animación", player: "Escucha a Lourdes Martín en Spotify" },
+  en: { title: "Music", skip: "Skip to content", songs: "Songs", photos: "Between songs", pause: "Pause animation", player: "Listen to Lourdes Martín on Spotify" },
 };
 
 for (const [locale, text] of Object.entries(copy)) {
   for (const concept of ["", ...concepts]) {
+    const isTinta = !concept || concept === "tinta";
     const route = `/${locale}${concept ? `/${concept}` : ""}`;
     const response = await fetch(base + route);
     assert.equal(response.status, 200, route);
@@ -24,18 +25,43 @@ for (const [locale, text] of Object.entries(copy)) {
     assert.equal((html.match(/<h1\b/g) || []).length, 1, `${route}: one artist H1`);
     assert.equal((html.match(/<main\b/g) || []).length, 1, `${route}: one main landmark`);
     assert.ok(html.includes('name="viewport"'), `${route}: responsive viewport`);
-    assert.ok(!html.includes("<iframe"), `${route}: Spotify stays deferred`);
     assert.ok(!html.includes('class="language-switch"'), `${route}: Spanish public presentation has no language switch`);
     assert.ok(!html.includes("/images/poster-"), `${route}: no concert archive in the selected simple structure`);
     assert.ok(!/songs &amp; little things|made of<br\/>|keep the little things|Loud heart|Soft songs/i.test(html), `${route}: retired slogans`);
 
-    for (const id of trackIds) {
-      assert.ok(html.includes(`https://open.spotify.com/track/${id}`), `${route}: real track ${id}`);
+    const iframes = [...html.matchAll(/<iframe\b[^>]*>/g)].map(match => match[0]);
+    const animatedSignatures = [...html.matchAll(/<svg\b[^>]*class="[^"]*\bsignature-animated\b[^"]*"[\s\S]*?<\/svg>/g)].map(match => match[0]);
+    if (isTinta) {
+      assert.ok(!/<header\b/.test(html), `${route}: no header`);
+      assert.ok(!html.includes('class="variation-bar"'), `${route}: no variation bar`);
+      assert.ok(!html.includes('class="song-list"'), `${route}: custom song list replaced`);
+      assert.ok(!html.includes('class="player-toggle"'), `${route}: no player activation step`);
+      assert.equal(iframes.length, 1, `${route}: one immediately rendered player`);
+      const player = iframes[0];
+      assert.ok(player.includes(`title="${text.player}"`), `${route}: translated player title`);
+      assert.ok(player.includes('width="100%"') && player.includes('height="352"'), `${route}: responsive player dimensions`);
+      const playerSource = player.match(/\bsrc="([^"]+)"/)?.[1];
+      assert.ok(playerSource, `${route}: player has a source`);
+      const playerUrl = new URL(playerSource.replaceAll("&amp;", "&"));
+      assert.equal(playerUrl.origin, "https://open.spotify.com", `${route}: Spotify player origin`);
+      assert.equal(playerUrl.pathname, "/embed/artist/246Ag05j7yjMUiIAMJ70A7", `${route}: artist player`);
+      assert.equal(playerUrl.searchParams.get("locale"), locale, `${route}: player locale`);
+      assert.ok(!playerUrl.searchParams.has("autoplay"), `${route}: no autoplay request`);
+      assert.equal(animatedSignatures.length, 1, `${route}: one animated hero signature`);
+      assert.ok(/<mask\b/.test(animatedSignatures[0]) && /\bmask="url\(#/.test(animatedSignatures[0]) && /\bstroke(?:=|-)/.test(animatedSignatures[0]), `${route}: signature reveal mask and strokes`);
+    } else {
+      assert.ok(/<header\b/.test(html), `${route}: variant header retained`);
+      assert.ok(html.includes('class="variation-bar"'), `${route}: variant navigation retained`);
+      assert.equal(iframes.length, 0, `${route}: Spotify stays deferred`);
+      assert.equal(animatedSignatures.length, 0, `${route}: signature remains static`);
+      for (const id of trackIds) {
+        assert.ok(html.includes(`https://open.spotify.com/track/${id}`), `${route}: real track ${id}`);
+      }
+      for (const variation of concepts) {
+        assert.ok(html.includes(`href="/${locale}/${variation}"`), `${route}: same-language variation ${variation}`);
+      }
+      assert.ok(html.includes('aria-current="page"'), `${route}: current variation identified`);
     }
-    for (const variation of concepts) {
-      assert.ok(html.includes(`href="/${locale}/${variation}"`), `${route}: same-language variation ${variation}`);
-    }
-    assert.ok(html.includes('aria-current="page"'), `${route}: current variation identified`);
     for (const old of Object.keys(legacyConcepts)) {
       assert.ok(!html.includes(`href="/${locale}/${old}"`), `${route}: no retired design link ${old}`);
     }

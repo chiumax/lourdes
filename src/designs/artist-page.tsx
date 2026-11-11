@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Signature } from "@/components/signature";
 import { SongList } from "@/components/song-list";
+import { SpotifyEmbed } from "@/components/spotify-embed";
 import { ConceptNav } from "@/components/concept-nav";
 import { CutoutFooter } from "@/components/cutout-footer";
 import { artist } from "@/lib/artist";
@@ -10,11 +11,12 @@ import s from "./artist-page.module.css";
 
 export function ArtistPage({ concept, locale }: { concept: Concept; locale: Locale }) {
   const t = getCopy(locale);
+  const isTinta = concept === "tinta";
   const isCuttings = concept === "recortes";
   const isAmp = concept === "amplificador";
 
   return <div className={`${s.page} ${s[concept]}`} data-design={concept}>
-    <ConceptNav current={concept} locale={locale} />
+    {!isTinta && <><ConceptNav current={concept} locale={locale} />
     <header className={s.header}>
       <a className={s.wordmark} href="#home">lourdes martín</a>
       <nav aria-label={t.navigation}>
@@ -22,13 +24,13 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
         <a href="#photos">{t.photos}</a>
         <a href={artist.instagram} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
       </nav>
-    </header>
+    </header></>}
     <main id="main">
       <section className={s.hero} id="home" aria-labelledby="artist-name">
         <div className={s.heroIntro}>
           <p className={s.eyebrow}><span>{t.genre}</span><span>{t.location}</span></p>
           {isAmp ? <h1 id="artist-name" className={s.blockName}>Lourdes<br />Martín<span>.</span></h1> :
-            <h1 id="artist-name" className={s.signatureName}><span className="sr-only">Lourdes Martín</span><Signature /></h1>}
+            <h1 id="artist-name" className={s.signatureName}><span className="sr-only">Lourdes Martín</span><Signature animated={isTinta} /></h1>}
           <div className={s.heroRelease}>
             <p className={s.releaseMeta}>{t.releaseLabel} <span>{featured.date}</span></p>
             <h2 lang="es" className={s.releaseTitle}>{isCuttings ? <><span>antes moría</span><span>por verte</span></> : <>antes moría<br /><em>por verte</em></>}</h2>
@@ -62,8 +64,8 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
           <a className={s.textLink} href={artist.spotify} target="_blank" rel="noreferrer">Spotify <span aria-hidden="true">↗</span></a>
         </div>
         <div className={s.songPaper}>
-          <div className={s.paperHeading}><span>LM / 01—05</span><span>{t.music}</span></div>
-          <SongList locale={locale} />
+          <div className={s.paperHeading}><span>{isTinta ? "LM / Spotify" : "LM / 01—05"}</span><span>{t.music}</span></div>
+          {isTinta ? <SpotifyEmbed locale={locale} /> : <SongList locale={locale} />}
         </div>
       </section>
 

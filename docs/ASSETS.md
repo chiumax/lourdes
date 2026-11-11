@@ -27,7 +27,7 @@ Extraction method: crop the cream poster at `{ left: 230, top: 230, width: 610, 
 
 This is a vector trace of a raster reference, not the artist's original vector master. It preserves the supplied letterforms, their stack, and the accent. Small edges inherit the quality of the poster. Replace the trace with the original master if the artist has one. Do not silently substitute a script font.
 
-Current rendering (2026-11-09): the signature is static. The previous approximate broad-mask reveal exposed adjacent letters and did not match an actual pen trajectory; it was removed during the design review. The traced letterforms, accent and counters are retained. A future animated version needs carefully traced centreline masks and visual review, not another broad reveal over the entire wordmark.
+Current rendering (2026-11-12): Tinta restores the original signature reveal at the user’s request. It uses the original approximate pen-gesture masks and timing over the faithful traced silhouette, finishing with the entire wordmark visible. Under reduced-motion preferences the complete mark is shown immediately. The other variations keep their static signatures. The reveal is a visual treatment, not a recording or exact reconstruction of the artist’s handwriting.
 
 The wordmark has a 610 × 360 viewBox. Scale proportionally and keep surrounding space of roughly one lowercase letter height. Prefer at least 180 CSS pixels wide for the complete two-line mark. At favicon size, use the portrait, not the unreadable full signature.
 
