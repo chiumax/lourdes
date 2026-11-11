@@ -1,3 +1,5 @@
+> Historical document. The November 11 revision follows the original selected site; see [current design directions](DESIGN-DIRECTIONS.md).
+
 # Lourdes Martín — detailed design and implementation prompt
 
 > Historical first-pass brief. The 2026-11-09 review in `DESIGN-REVIEW.md` supersedes its placeholder copy, broad-mask logo animation and decorative feature choices. The current site is bilingual, Spanish-first, and uses verified track data and the supplied concert archive.

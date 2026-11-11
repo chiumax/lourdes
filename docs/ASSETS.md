@@ -85,3 +85,17 @@ npm run assets:prepare
 ```
 
 The script checks for source files and gives a clear error if they are absent. It regenerates only the specifically named derived assets. Runtime code never reads `.context`. Do not commit full Instagram screenshots or the original posters merely to make asset regeneration work in a fresh clone.
+
+## November 11 revision: fonts and footer
+
+The runtime uses three additional locally served OFL fonts, obtained from their Fontsource 5.3.0 packages: Anton (400), Bodoni Moda (900), IBM Plex Mono (400). Font files and their complete licences are committed under `public/fonts/`. Existing DM Sans and Caveat are retained for readable body text and occasional captions. The display fonts are not preloaded, so the initial page does not preload every variation's typeface.
+
+The supplied `.context/attachments/CKRRwV/image.png` is the source for `public/images/lourdes-cutout.png` (1274×1235) and its runtime derivative `public/images/lourdes-cutout.webp` (1000×969, approximately 120 KB). Built-in `image_gen.imagegen` extracted the seated figure with real transparency; no CLI/API fallback was used. The source PNG remains untouched. Generative extraction can change tiny edges/textures; the derivative is not represented as an untouched photograph.
+
+The footer animates this single cut-out through six small stepped transforms. It does not manufacture facial poses or claim to be a video. Motion pauses offscreen, is user-pausable, and is disabled under `prefers-reduced-motion`.
+
+Exact extraction prompt:
+
+> Use case: background-extraction. Asset type: transparent photographic paper cut-out for an artist website footer. Input image 1 is the edit target. Remove ONLY the environment and UI: the chair, cabin, windows, scenery, arrow button and carousel dots. Isolate the seated woman in precisely her existing curled-up pose, including all visible hair, black jacket, hands, pale blue jeans and both white shoes. Preserve her actual facial features, identity, expression, gaze, body proportions, clothing folds, original lighting and photographic grain unchanged. She rests her cheek on her hand; keep this pose. Maintain the entire visible silhouette without cropping the shoes or head. No invented new pose, no beautification, no illustration, no paper outline, no text, no shadow. Genuine transparent background with clean alpha around hair and clothes; all negative spaces transparent. Leave a small even transparent margin around the full figure.
+
+The two collage reference images are direction references only. Their subjects, example text, promotional badges and third-party imagery are not used in the site. The ripped portrait is built with CSS fragments of the existing Lourdes release artwork.

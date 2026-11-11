@@ -1,3 +1,5 @@
+> Historical document. The November 11 revision follows the original selected site; see [current design directions](DESIGN-DIRECTIONS.md).
+
 # Design review — 9 November 2026
 
 The first versions looked assembled from familiar scrapbook tropes. They had distinct colour schemes but shared too much of the same generic emotional copy and decoration. The artist's real identity was less prominent than invented visual props. This review covers the content, hierarchy, images, interactions, accessibility, language, implementation and deployment of all three versions.

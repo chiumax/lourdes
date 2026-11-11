@@ -1,19 +1,42 @@
-# Three design directions
+# Three variations of the selected site
 
-The three branches now share a Spanish-first, fully bilingual content system. Each retains a distinct composition. The 9 November 2026 revision removes generic slogans and invented props and uses verified songs and the supplied concert posters instead. Read [the detailed review](DESIGN-REVIEW.md) for the assessment of every part and remaining QA limits.
+All three now live on `design/postmarked-yours`. The reference is the original page at https://lourdes-rosy.vercel.app/ (the `origin/main` design), not the subsequent Postmarked layout. The original signature/photo introduction, music section and short photo scrapbook are retained. The old postcard, bedroom and blue notebook directions are retired.
 
-| Design | Branch | Explicit Spanish route | Explicit English route |
-| --- | --- | --- | --- |
-| Postmarked, Yours | `design/postmarked-yours` | `/es/postmarked` | `/en/postmarked` |
-| Bedroom Floor | `design/bedroom-floor` | `/es/bedroom-floor` | `/en/bedroom-floor` |
-| The Blue Book | `design/the-blue-book` | `/es/blue-book` | `/en/blue-book` |
+| Variation | Spanish route | Direction |
+| --- | --- | --- |
+| Tinta | `/es` or `/es/tinta` | Closest to the selected page: cream stock, burgundy signature, darker print, fewer props. |
+| Amplificador | `/es/amplificador` | Charcoal and acid yellow, enormous Anton artist name, hard crops and a gig-poster composition. |
+| Recortes | `/es/recortes` | Sage paper, scarlet cut-out title fragments, ripped portrait strips, high-contrast Bodoni typography and a fuller collage. |
 
-`/es` and `/en` show the selected branch's design. `/` defaults to Spanish or the visitor's saved preference. Legacy design paths redirect to their localized equivalents. The footer's optional design comparison links keep the chosen language.
+The small version bar makes comparison possible without separate deployments. Each version uses the same verified catalogue and straightforward Spanish copy. `/en` and `/en/{variation}` remain English reference pages for translation work; no public language switch is shown for now.
 
-- **Postmarked:** peach paper, blue ink, an understated airmail edge and a two-part postcard composition.
-- **Bedroom Floor:** lavender, burgundy signature, a star-cut photo echoing the supplied poster, a release strip and a poster wall.
-- **Blue Book:** dark slate, a flat two-page artist notebook, natural-colour photographs, a song index and an expandable photo sheet.
+## What remains from the chosen page
 
-All three use the actual signature, verified song titles and Spotify links, the featured track's real artwork, and the two historical concert posters. They do not advertise unconfirmed future shows or invent an artist biography. Song titles and original Spanish artwork are preserved in both languages.
+- Signature, existing sea portrait and overlapping guitar photo.
+- Three concise sections, direct music links and an optional Spotify player.
+- Photographs with their own space rather than a long content feed.
+- Paper layering, small handwritten captions and an informal composition.
 
-The shared implementation lives in `src/designs/`, localized routes in `src/app/[lang]/`, and copy in `src/lib/i18n.ts`. `src/lib/default-concept.ts` is the only branch-specific setting. There are no client-only translation flashes: the HTML arrives in the chosen language.
+## What changes
+
+- No hearts, sunshine stickers, cute slogans or invented artist statements.
+- Distinct typography, stronger contrast and more deliberate image crops.
+- Real song titles supply the hero copy.
+- No large poster archive: that belongs to the previous exploration and lengthened the chosen simple site.
+- One cut-paper footer based on the supplied seated photograph. It shifts between discrete transforms, like repositioned paper. This is animation of a single cut-out, not generated footage or new facial poses.
+- Animation runs only while the footer is visible, has a pause/resume button, and stays static for reduced-motion preferences.
+
+## Mobile approach and verification
+
+The reading order stays introduction → photograph → music → photos → footer. At 700px the main sections become single columns. Local overlap is confined to photo compositions; the page is not globally clipped to hide overflow. Navigation wraps at narrow widths, primary controls have 44px or larger targets, media has intrinsic dimensions, and display type scales down.
+
+Build, TypeScript, lint and production HTTP integration checks are the automated acceptance gates. The latter cover all eight localized pages, assets, content, redirects, anchors and motion-control markup. Actual rendered mobile layout and browser interactions could not be visually verified: the browser connector failed and the native Computer Use session was unavailable. That limitation is not counted as a pass.
+
+## Retired branches
+
+The two previous remote/local design branches were removed on 11 November after their exact heads were preserved in pushed tags:
+
+- `archive/bedroom-floor-2026-11-11` → `54b0399b9e6c503646825b161684cda0c09bb38e`
+- `archive/the-blue-book-2026-11-11` → `ccb106f87eafc1ee89d974989738f6442e9ca96a`
+
+There were no open pull requests to close. Historical Vercel deployment URLs may still exist; deleting a Git branch does not delete its old deployments. All new work uses the existing `design/postmarked-yours` branch.

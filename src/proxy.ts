@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const retired: Record<string, string> = { postmarked: "tinta", "bedroom-floor": "amplificador", "blue-book": "recortes" };
+
 export function proxy(request: NextRequest) {
-  const saved = request.cookies.get("lm-language")?.value;
-  const locale = saved === "en" ? "en" : "es";
   const target = request.nextUrl.clone();
-  target.pathname = `/${locale}${target.pathname === "/" ? "" : target.pathname}`;
-  return NextResponse.redirect(target);
+  const parts = target.pathname.split("/").filter(Boolean);
+  const localized = parts[0] === "es" || parts[0] === "en";
+  const last = parts[localized ? 1 : 0];
+  const replacement = retired[last];
+  // Public entry points are Spanish. Explicit English URLs remain for copy review.
+  target.pathname = replacement
+    ? `/${localized ? parts[0] : "es"}/${replacement}`
+    : `/es${target.pathname === "/" ? "" : target.pathname}`;
+  return NextResponse.redirect(target, replacement ? 308 : 307);
 }
-// Only legacy entry points. Never intercept assets, localized pages or 404s.
-export const config = { matcher: ["/", "/postmarked", "/bedroom-floor", "/blue-book"] };
+
+export const config = {
+  matcher: ["/", "/tinta", "/amplificador", "/recortes", "/postmarked", "/bedroom-floor", "/blue-book", "/:lang(es|en)/:old(postmarked|bedroom-floor|blue-book)"],
+};
