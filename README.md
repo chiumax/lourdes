@@ -1,6 +1,6 @@
 # Lourdes Martín
 
-Three variations of the artist's selected scrapbook site, on one branch: `design/postmarked-yours`.
+Tinta and two studies of its element styling, on one branch: `design/postmarked-yours`.
 
 ## Run
 
@@ -14,14 +14,15 @@ Node 20.9+ is required. Open http://localhost:3000; the public entry is Spanish.
 | Variation | Route |
 | --- | --- |
 | Tinta — cream and burgundy, closest to the original | `/es` or `/es/tinta` |
-| Amplificador — charcoal and acid-yellow gig poster | `/es/amplificador` |
-| Recortes — torn magazine collage | `/es/recortes` |
+| Tinta Editorial — fine frames, regular serif and quiet paper | `/es/tinta-editorial` |
+| Tinta Estudio — sans typography and dark photo mounts | `/es/tinta-estudio` |
 
-Tinta is the selected direction and opens directly on its animated signature hero, without a header or version bar. Its music section loads Spotify immediately inside the paper panel. The other two variations retain their comparison bars and deferred players. English reference routes are available at `/en`, `/en/tinta`, `/en/amplificador` and `/en/recortes`. They are retained for Rafa's copy work; the public site currently has no language switch. Old design paths redirect to the new variations.
+Tinta and its two new studies open directly on the animated signature hero, without a header or version bar. Their music sections load Spotify immediately inside a paper panel. The original Tinta layout remains the default. Earlier Amplificador and Recortes explorations remain at `/es/amplificador` and `/es/recortes`. English reference routes use `/en` in place of `/es`, including `/en/tinta-editorial` and `/en/tinta-estudio`. They are retained for Rafa's copy work; the public site currently has no language switch. Old design paths redirect to the new variations.
 
 ## Editing
 
-- `src/designs/artist-page.tsx` and its CSS module: the shared page structure and three distinct art directions.
+- `src/designs/artist-page.tsx` and its CSS module: original Tinta and the earlier explorations.
+- `src/designs/tinta-study.tsx` and its CSS module: isolated Editorial and Estudio element studies.
 - `src/components/cutout-footer.tsx`: stepped paper animation, visibility gating and pause/resume control.
 - `src/lib/i18n.ts`: Spanish and English copy, including alt text and metadata.
 - `src/lib/music.ts`: verified Spotify songs and featured artwork.
@@ -47,6 +48,6 @@ With the production server running:
 npm run check:site
 ```
 
-The HTTP checks cover all eight pages, localized content, metadata, five song links, media and local resources, section anchors, footer controls, Spanish entry, retired URLs and 404s. They do not verify rendered layout, playback or animation interaction. Browser automation was unavailable during this revision; mobile/device visual review remains outstanding. In this Next.js build, translated 404 recovery requires JavaScript; normal artist pages are server-rendered.
+The HTTP checks cover all twelve pages, localized content, metadata, five song links, media and local resources, section anchors, footer controls, Spanish entry, retired URLs and 404s. They do not verify rendered layout, playback or animation interaction. Browser automation was unavailable during this revision; mobile/device visual review remains outstanding. In this Next.js build, translated 404 recovery requires JavaScript; normal artist pages are server-rendered.
 
 All runtime assets and font licences are committed; no secrets or environment variables are needed. The original `.context` attachments are optional source material, not runtime dependencies. `npm run assets:prepare` prepares the original assets only and requires those attachments. The footer derivative is documented separately.

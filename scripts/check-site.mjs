@@ -2,7 +2,8 @@
 import assert from "node:assert/strict";
 
 const base = process.env.SITE_URL || "http://localhost:3000";
-const concepts = ["tinta", "amplificador", "recortes"];
+const concepts = ["tinta", "tinta-editorial", "tinta-estudio", "amplificador", "recortes"];
+const originalNavigation = ["tinta", "amplificador", "recortes"];
 const legacyConcepts = { postmarked: "tinta", "bedroom-floor": "amplificador", "blue-book": "recortes" };
 const trackIds = ["2mvtMnxyRxaSTgcYTV8JIe", "4SK5CTgzKEBu7pcsSjbqGs", "6c7xGiUPfB8iDrfQ9NJcxz", "7Io1Ws8fngOaPx6HTSKgkW", "2PFr2WppXicoSHknhx9yDS"];
 const checkedAssets = new Set();
@@ -13,7 +14,7 @@ const copy = {
 
 for (const [locale, text] of Object.entries(copy)) {
   for (const concept of ["", ...concepts]) {
-    const isTinta = !concept || concept === "tinta";
+    const isTinta = !concept || concept.startsWith("tinta");
     const route = `/${locale}${concept ? `/${concept}` : ""}`;
     const response = await fetch(base + route);
     assert.equal(response.status, 200, route);
@@ -57,7 +58,7 @@ for (const [locale, text] of Object.entries(copy)) {
       for (const id of trackIds) {
         assert.ok(html.includes(`https://open.spotify.com/track/${id}`), `${route}: real track ${id}`);
       }
-      for (const variation of concepts) {
+      for (const variation of originalNavigation) {
         assert.ok(html.includes(`href="/${locale}/${variation}"`), `${route}: same-language variation ${variation}`);
       }
       assert.ok(html.includes('aria-current="page"'), `${route}: current variation identified`);

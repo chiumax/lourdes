@@ -1,0 +1,172 @@
+.page {
+  --paper:#f5f2e9;
+  --ink:#3a302d;
+  --accent:#772f39;
+  --line:#c9c1b5;
+  --panel:#fffcf5;
+  --footer-bg:#eee9df;
+  --footer-ink:#543732;
+  --footer-outline:#eee9df;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-sans),sans-serif;
+}
+.page :where(a,button):focus-visible { outline:2px solid var(--accent); outline-offset:6px; }
+.hero { max-width:1180px; margin:auto; padding:80px 45px 100px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:8%; align-items:center; position:relative; }
+.introduction { min-width:0; }
+.location { display:flex; justify-content:space-between; gap:20px; font-size:11px; line-height:1.5; letter-spacing:.02em; max-width:420px; }
+.signature { color:var(--accent); width:100%; max-width:470px; margin:24px 0 34px; }
+.release { max-width:340px; }
+.releaseInfo { display:flex; align-items:baseline; gap:28px; font-size:10px; line-height:1.6; }
+.releaseInfo time { color:#6c6056; }
+.release h2 { font:400 clamp(36px,4.1vw,55px)/1.08 var(--font-book),Georgia,serif; letter-spacing:-1.5px; margin:16px 0 23px; }
+.listen { display:flex; align-items:center; justify-content:space-between; gap:30px; width:fit-content; min-width:210px; min-height:48px; border-bottom:1px solid var(--accent); padding:12px 0; font-size:12px; text-decoration:none; color:var(--accent); }
+.listen > span { font-size:20px; transition:transform .18s; }
+.listen:hover > span { transform:translate(2px,-2px); }
+.portraits { position:relative; min-width:0; padding:16px 0 75px 12px; }
+.cover { padding:13px; border:1px solid var(--line); background:var(--panel); }
+.coverPrint img { display:block; width:100%; height:auto; }
+.cover figcaption { display:flex; align-items:baseline; justify-content:space-between; gap:12px; font-size:10px; line-height:1.6; padding:17px 2px 4px; }
+.cover figcaption > span:last-child { color:#6c6056; }
+.guitarPrint { position:absolute; width:125px; bottom:0; left:-18px; transform:rotate(-4deg); padding:6px 6px 10px; background:var(--panel); border:1px solid var(--line); }
+.guitarPrint img { display:block; width:100%; height:126px; object-fit:cover; }
+.guitarPrint figcaption { font-size:9px; line-height:1.5; padding:8px 1px 0; }
+.scroll { position:absolute; bottom:17px; left:45px; display:flex; gap:24px; align-items:center; min-height:44px; padding:12px 0; font-size:10px; text-decoration:none; }
+.scroll > span { font-size:18px; }
+.music { max-width:1090px; margin:auto; padding:75px 0 85px; border-top:1px solid var(--line); display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:10%; align-items:center; }
+.sectionCopy h2,.photosHeading h2 { font:400 clamp(40px,4.2vw,58px)/1.12 var(--font-book),Georgia,serif; letter-spacing:-1.5px; }
+.sectionCopy p { font-size:13px; line-height:1.7; margin-top:20px; }
+.sectionCopy > a { display:inline-flex; gap:35px; align-items:center; min-height:44px; padding:12px 0; margin-top:16px; font-size:12px; }
+.listeningPaper { min-width:0; background:var(--panel); padding:25px 25px 12px; border:1px solid var(--line); }
+.paperLabel { display:flex; justify-content:space-between; gap:18px; padding-bottom:16px; border-bottom:1px solid #d7d0c4; font-size:10px; }
+.listeningPaper :global(.loaded-player) { padding-top:18px; }
+.listeningPaper :global(.embed-fallback) { opacity:1; color:#6c6056; font-size:10px; }
+.photos { max-width:1090px; margin:auto; padding:65px 0 90px; border-top:1px solid var(--line); }
+.photosHeading { display:flex; align-items:baseline; justify-content:space-between; gap:30px; }
+.photosHeading > p { font-size:12px; color:#6c6056; }
+.photoLayout { display:grid; grid-template-columns:minmax(0,2.1fr) minmax(0,1fr); gap:8%; align-items:end; margin-top:40px; }
+.photoPair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:26px; }
+.photoPair figure { max-width:285px; padding:7px; border:1px solid var(--line); background:var(--panel); }
+.photoPair img { display:block; width:100%; height:auto; }
+.photoPair figcaption { font-size:11px; line-height:1.6; padding:13px 5px 8px; }
+.poolPrint { margin-top:56px; }
+.instagram { display:flex; flex-direction:column; gap:16px; align-items:start; padding:0 0 18px; margin-bottom:8px; border-bottom:1px solid var(--line); font:400 26px/1.2 var(--font-book),Georgia,serif; text-decoration:none; }
+.instagram > span { display:inline; }
+.instagram small { font:10px/1.6 var(--font-sans),sans-serif; letter-spacing:.01em; }
+.instagram:hover > span { text-decoration:underline; text-decoration-thickness:1px; }
+
+/* Estudio: photo mounts and a restrained sans-serif system. */
+.estudio {
+  --paper:#e7e4de;
+  --ink:#282927;
+  --accent:#633c39;
+  --line:#b6b3aa;
+  --panel:#f7f5ed;
+  --footer-bg:#292c29;
+  --footer-ink:#f1efe5;
+  --footer-outline:#292c29;
+}
+.estudio .hero { max-width:1230px; gap:7%; padding-top:65px; padding-bottom:110px; }
+.estudio .location { text-transform:uppercase; letter-spacing:1px; font-size:9px; max-width:430px; }
+.estudio .signature { color:var(--ink); margin-top:33px; margin-bottom:34px; }
+.estudio .releaseInfo { font-size:10px; }
+.estudio .release h2 { font:400 clamp(33px,3.5vw,46px)/1.13 var(--font-sans),sans-serif; letter-spacing:-1.6px; margin-top:18px; }
+.estudio .listen { border:1px solid var(--ink); min-width:222px; padding:14px 18px; color:var(--ink); transition:background-color .18s,color .18s; }
+.estudio .listen:hover { background:var(--ink); color:var(--panel); }
+.estudio .portraits { padding-left:13px; padding-right:0; padding-bottom:68px; }
+.estudio .cover { background:#30322f; border:0; padding:8px 8px 0; color:#eeeae0; }
+.estudio .cover figcaption { padding:18px 10px; gap:15px; font-size:10px; }
+.estudio .cover figcaption > span:last-child { color:#bfbeb3; }
+.estudio .guitarPrint { width:122px; left:-12px; background:var(--panel); border:0; padding:6px 6px 10px; transform:rotate(-3deg); box-shadow:0 1px 4px #28292722; }
+.estudio .guitarPrint img { height:120px; }
+.estudio .music { padding-top:75px; padding-bottom:80px; gap:9%; }
+.estudio .sectionCopy h2,.estudio .photosHeading h2 { font:400 clamp(38px,4.2vw,52px)/1.1 var(--font-sans),sans-serif; letter-spacing:-2px; }
+.estudio .listeningPaper { border:1px solid var(--line); padding:26px 26px 13px; }
+.estudio .paperLabel { font-size:10px; border-bottom-color:#c5c4ba; }
+.estudio .photos { padding-bottom:75px; }
+.estudio .photoLayout { grid-template-columns:minmax(0,1fr); gap:0; }
+.estudio .photoPair { padding:22px; gap:28px; width:fit-content; background:#30322f; }
+.estudio .photoPair figure { padding:0; background:transparent; border:0; max-width:270px; color:#e8e7df; }
+.estudio .photoPair figcaption { padding:15px 0 0; font-size:11px; }
+.estudio .poolPrint { margin-top:0; }
+.estudio .instagram { justify-self:end; margin:26px 0 0; padding:0; border:0; min-height:44px; font:13px/1.5 var(--font-sans),sans-serif; gap:8px; }
+.estudio .instagram small { color:#66665c; }
+
+@media(max-width:1180px) {
+  .music,.photos { margin-inline:45px; }
+  .photoLayout { gap:6%; }
+  .photoPair { gap:20px; }
+}
+@media(max-width:900px) {
+  .hero { padding:55px 35px 90px; gap:7%; }
+  .signature { margin-block:22px 30px; }
+  .release h2 { font-size:40px; }
+  .portraits { padding-left:5px; }
+  .cover { padding:9px; }
+  .cover figcaption { font-size:9px; }
+  .guitarPrint { width:108px; left:-10px; }
+  .guitarPrint img { height:106px; }
+  .scroll { left:35px; }
+  .music { margin-inline:35px; grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr); gap:6%; }
+  .photos { margin-inline:35px; }
+  .photoLayout { grid-template-columns:minmax(0,1fr); gap:28px; }
+  .photoPair { max-width:590px; }
+  .instagram { justify-self:end; font-size:24px; margin:0; }
+  .estudio .release h2 { font-size:35px; }
+  .estudio .listen { min-width:205px; padding-inline:15px; }
+  .estudio .listeningPaper { padding:21px 19px 11px; }
+  .estudio .photoPair { max-width:620px; }
+}
+@media(max-width:700px) {
+  .hero,.estudio .hero { grid-template-columns:minmax(0,1fr); gap:34px; padding:35px 26px 73px; }
+  .introduction { width:100%; max-width:460px; justify-self:center; }
+  .location { font-size:10px; }
+  .signature { max-width:430px; margin:22px 0 28px; }
+  .release h2 { font-size:44px; margin:18px 0; }
+  .releaseInfo { gap:24px; font-size:9px; }
+  .listen { font-size:12px; min-width:220px; }
+  .portraits,.estudio .portraits { width:100%; max-width:430px; justify-self:center; padding:12px 3px 66px 13px; }
+  .cover { padding:10px; }
+  .cover figcaption { font-size:10px; }
+  .guitarPrint { left:0; bottom:0; width:110px; }
+  .guitarPrint img { height:108px; }
+  .guitarPrint figcaption { font-size:9px; }
+  .scroll { left:26px; bottom:9px; }
+  .music,.estudio .music { margin:0 25px; padding:40px 0 46px; grid-template-columns:minmax(0,1fr); gap:25px; }
+  .sectionCopy h2 { font-size:44px; letter-spacing:-1px; }
+  .sectionCopy p { margin-top:14px; font-size:13px; }
+  .sectionCopy > a { margin-top:5px; }
+  .listeningPaper { padding:19px 13px 8px; }
+  .paperLabel { padding-bottom:15px; font-size:10px; }
+  .photos,.estudio .photos { margin:0 25px; padding:40px 0 47px; }
+  .photosHeading { flex-direction:column; gap:15px; }
+  .photosHeading h2 { font-size:clamp(36px,9vw,45px); letter-spacing:-1px; }
+  .photosHeading > p { font-size:12px; }
+  .photoLayout { margin-top:30px; gap:27px; }
+  .photoPair { gap:14px; }
+  .photoPair figure { padding:5px; }
+  .photoPair figcaption { font-size:10px; padding:12px 2px 5px; }
+  .poolPrint { margin-top:31px; }
+  .instagram { justify-self:stretch; padding-bottom:15px; gap:12px; font-size:25px; }
+  .estudio .signature { margin-block:25px 30px; }
+  .estudio .release h2 { font-size:39px; }
+  .estudio .location { font-size:9px; }
+  .estudio .listen { min-width:225px; }
+  .estudio .guitarPrint { width:108px; left:0; }
+  .estudio .guitarPrint img { height:105px; }
+  .estudio .cover figcaption { font-size:9px; padding:15px 6px; }
+  .estudio .sectionCopy h2 { font-size:41px; }
+  .estudio .photosHeading h2 { font-size:clamp(33px,8.7vw,42px); letter-spacing:-1.4px; }
+  .estudio .listeningPaper { padding:20px 13px 9px; }
+  .estudio .photoPair { width:100%; padding:12px; gap:13px; }
+  .estudio .photoPair figcaption { font-size:10px; padding-top:12px; }
+  .estudio .instagram { justify-self:start; font-size:13px; }
+}
+@media(max-width:370px) {
+  .hero,.estudio .hero { padding-inline:22px; }
+  .release h2 { font-size:39px; }
+  .estudio .release h2 { font-size:35px; }
+  .music,.photos,.estudio .music,.estudio .photos { margin-inline:20px; }
+  .photosHeading h2 { font-size:35px; }
+  .photoPair { gap:10px; }
+}

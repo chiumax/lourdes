@@ -31,3 +31,43 @@
   .baseline > span:nth-child(2) { display:none; }
 }
 @media(prefers-reduced-motion:reduce) { .cutout { animation:none; transform:none; } .motionControl { display:none; } }
+
+/* The Tinta studies use quieter type and a straight edge; the original is untouched. */
+.editorial,.estudio { margin-top:0; border-top:1px solid var(--line); }
+.editorial::before,.estudio::before { display:none; }
+.editorial :is(a,button):focus-visible,.estudio :is(a,button):focus-visible { outline:2px solid var(--footer-ink); outline-offset:6px; }
+.editorial .stage,.estudio .stage { max-width:1090px; padding:50px 0 25px; grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); gap:50px; }
+.editorial .footerCopy,.estudio .footerCopy { padding-bottom:20px; }
+.editorial .signoff,.estudio .signoff { font:12px/1.6 var(--font-sans),sans-serif; transform:none; margin:0 0 25px; }
+.editorial .bigName { font:400 clamp(54px,6.6vw,82px)/1.03 var(--font-book),Georgia,serif; letter-spacing:-2px; text-transform:none; }
+.editorial .bigName > span:last-child,.estudio .bigName > span:last-child { margin-left:0; }
+.editorial .socials,.estudio .socials { font:12px var(--font-sans),sans-serif; margin-top:24px; gap:28px; }
+.editorial .cutoutStage,.estudio .cutoutStage { width:min(100%,320px); justify-self:end; }
+.editorial .cutout,.estudio .cutout { filter:none; }
+.editorial .motionControl,.estudio .motionControl { font:10px var(--font-sans),sans-serif; padding:9px 0; border:0; border-bottom:1px solid currentColor; margin-top:12px; min-height:44px; }
+.editorial .motionControl:hover,.estudio .motionControl:hover { background:none; color:inherit; text-decoration:underline; }
+.editorial .baseline,.estudio .baseline { max-width:1090px; padding-block:16px; font:10px var(--font-sans),sans-serif; }
+.estudio { border-top:0; }
+.estudio .stage { grid-template-columns:minmax(0,1.4fr) minmax(0,.6fr); padding-top:45px; }
+.estudio .bigName { font:400 clamp(43px,5vw,66px)/1.1 var(--font-sans),sans-serif; letter-spacing:-2px; text-transform:none; flex-direction:row; flex-wrap:wrap; gap:0 .25em; width:auto; }
+.estudio .cutoutStage { width:min(100%,285px); }
+@media(max-width:1180px) {
+  .editorial .stage,.estudio .stage { margin:0 45px; }
+  .editorial .baseline,.estudio .baseline { margin:0 45px; }
+}
+@media(max-width:900px) {
+  .editorial .stage,.estudio .stage { margin:0 35px; gap:30px; }
+  .editorial .baseline,.estudio .baseline { margin:0 35px; }
+}
+@media(max-width:700px) {
+  .editorial .stage,.estudio .stage { margin:0 25px; padding:35px 0 20px; grid-template-columns:minmax(0,1fr); gap:15px; }
+  .editorial .bigName { font-size:62px; line-height:1.03; letter-spacing:-1.6px; }
+  .editorial .bigName > span:last-child,.estudio .bigName > span:last-child { margin-left:0; }
+  .editorial .footerCopy,.estudio .footerCopy { padding-bottom:0; }
+  .editorial .signoff,.estudio .signoff { margin-bottom:21px; }
+  .editorial .socials,.estudio .socials { margin-top:17px; }
+  .editorial .cutoutStage { width:min(85%,290px); margin:0 0 0 auto; }
+  .editorial .baseline,.estudio .baseline { margin:0 25px; padding:12px 0; font-size:9px; }
+  .estudio .bigName { font-size:46px; letter-spacing:-1.4px; }
+  .estudio .cutoutStage { width:min(80%,265px); margin:0 0 0 auto; }
+}

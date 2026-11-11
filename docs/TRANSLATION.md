@@ -1,8 +1,8 @@
 # Spanish copy and English reference
 
-The public entry point opens Spanish. The visible site has no language switch, following Lourdes's request to launch in Spanish. English remains available at `/en`, `/en/tinta`, `/en/amplificador` and `/en/recortes` as a reference for Rafa while reviewing the copy. Spanish routes use `/es` instead of `/en`.
+The public entry point opens Spanish. The visible site has no language switch, following Lourdes's request to launch in Spanish. English remains available at `/en`, `/en/tinta`, `/en/tinta-editorial`, `/en/tinta-estudio`, `/en/amplificador` and `/en/recortes` as a reference for Rafa while reviewing the copy. Spanish routes use `/es` instead of `/en`.
 
-Edit the Spanish and English entries in [`src/lib/i18n.ts`](../src/lib/i18n.ts). The dictionary has matching typed keys, so a missing translation is caught by TypeScript. Keep the same key in each language; change its text rather than the component markup. The three designs share the same content. Choosing Tinta, Amplificador or Recortes changes the art direction, not the artist's identity or catalogue.
+Edit the Spanish and English entries in [`src/lib/i18n.ts`](../src/lib/i18n.ts). The dictionary has matching typed keys, so a missing translation is caught by TypeScript. Keep the same key in each language; change its text rather than the component markup. The Tinta studies share the original Tinta content; the earlier explorations retain the same artist catalogue. Choosing Tinta, Amplificador or Recortes changes the art direction, not the artist's identity or catalogue.
 
 ## Voice
 

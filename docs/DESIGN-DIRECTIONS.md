@@ -40,3 +40,18 @@ The two previous remote/local design branches were removed on 11 November after 
 - `archive/the-blue-book-2026-11-11` → `ccb106f87eafc1ee89d974989738f6442e9ca96a`
 
 There were no open pull requests to close. Historical Vercel deployment URLs may still exist; deleting a Git branch does not delete its old deployments. All new work uses the existing `design/postmarked-yours` branch.
+
+## Tinta element studies — 12 November
+
+The latest request is for two variations of **Tinta**, with deliberate element styling and a restrained finished-site feel. Original Tinta remains the default and its markup/styles are unchanged. Both studies retain Spanish copy, the animated signature, immediately loaded Spotify player on paper, header-free structure and pausable cut-out footer.
+
+| Study | Route | Element treatment |
+| --- | --- | --- |
+| Editorial | `/es/tinta-editorial` | Actual regular-weight Bodoni Moda paired with DM Sans; fine portrait frame, one small guitar overlap, an underlined listening action, a flat cream player sheet, staggered photo prints and a quieter cream footer. |
+| Estudio | `/es/tinta-estudio` | DM Sans throughout with the existing signature; dark photograph mounts, a fine outlined listening action, flat paper around Spotify, a paired contact sheet and a compact dark footer. |
+
+The studies are implemented separately from the original `ArtistPage` styles. Footer treatments are opt-in; the default footer remains unchanged. They use existing artist images and exact release information. No invented quotations, film markings, decorative badges or new content sections are introduced. The existing screenshot crops stay at approximately 270 CSS pixels wide or smaller.
+
+Editorial uses the real 400-weight Bodoni file, rather than trying to make the previous 900-weight asset appear light. Estudio uses one font family plus the actual signature. Both remove the original collage's giant arrows, repeated numeric labels and uniform paper rotation; the one overlapping guitar print retains the scrapbook connection.
+
+Source review covered 320px gutters, shrinking grids, typography wrapping, focus outlines and reduced-motion behavior. The dark footer has a light focus outline. Builds, TypeScript, lint and HTTP route/resource checks cover all twelve localized pages. The browser/native session remained unavailable, so rendered mobile appearance, animation and playback were not visually verified.
