@@ -10,6 +10,7 @@
 .eyebrow { display:flex; flex-wrap:wrap; gap:20px; font:10px var(--font-mono),monospace; text-transform:uppercase; letter-spacing:1px; }
 .eyebrow > span+span::before { content:"/"; margin-right:20px; }
 .signatureName { color:var(--accent); width:100%; max-width:520px; margin:29px 0 35px -7px; transform:rotate(-5deg); }
+.tinta .signatureName { margin-top:0; }
 .heroRelease { margin:0 0 0 16px; }
 .releaseMeta { font:9px var(--font-mono),monospace; text-transform:uppercase; display:flex; flex-wrap:wrap; gap:25px; }
 .releaseMeta > span { opacity:.65; }

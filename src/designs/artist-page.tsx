@@ -28,7 +28,7 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
     <main id="main">
       <section className={s.hero} id="home" aria-labelledby="artist-name">
         <div className={s.heroIntro}>
-          <p className={s.eyebrow}><span>{t.genre}</span><span>{t.location}</span></p>
+          {!isTinta && <p className={s.eyebrow}><span>{t.genre}</span><span>{t.location}</span></p>}
           {isAmp ? <h1 id="artist-name" className={s.blockName}>Lourdes<br />Martín<span>.</span></h1> :
             <h1 id="artist-name" className={s.signatureName}><span className="sr-only">Lourdes Martín</span><Signature animated={isTinta} /></h1>}
           <div className={s.heroRelease}>
@@ -50,7 +50,7 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
             <Image src="/images/guitar-by-the-pool.webp" alt={t.guitarAlt} width={640} height={800} sizes="(max-width: 700px) 110px, 145px" />
             <figcaption>{t.guitarCaption}</figcaption>
           </figure>
-          <span className={s.marginType} aria-hidden="true">LOURDES MARTÍN — 01</span>
+          {!isTinta && <span className={s.marginType} aria-hidden="true">LOURDES MARTÍN — 01</span>}
           {isCuttings && <span className={s.cutoutLabel} aria-hidden="true">LM</span>}
         </div>
         <a className={s.scrollLink} href="#music"><span>{t.music}</span><span aria-hidden="true">↓</span></a>

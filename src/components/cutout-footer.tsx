@@ -6,7 +6,7 @@ import { getCopy, type Locale } from "@/lib/i18n";
 import { artist } from "@/lib/artist";
 import s from "./cutout-footer.module.css";
 
-export function CutoutFooter({ locale, treatment = "original" }: { locale: Locale; treatment?: "original" | "editorial" | "estudio" }) {
+export function CutoutFooter({ locale }: { locale: Locale }) {
   const t = getCopy(locale);
   const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -19,7 +19,7 @@ export function CutoutFooter({ locale, treatment = "original" }: { locale: Local
     return () => observer.disconnect();
   }, []);
 
-  return <footer ref={footer} className={`${s.footer}${treatment === "original" ? "" : ` ${s[treatment]}`}`} data-motion={paused ? "paused" : "running"} data-visible={visible}>
+  return <footer ref={footer} className={s.footer} data-motion={paused ? "paused" : "running"} data-visible={visible}>
     <div className={s.stage}>
       <div className={s.footerCopy}>
         <p className={s.signoff}>{t.footerLine}</p>

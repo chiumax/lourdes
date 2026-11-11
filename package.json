@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "assets:prepare": "node scripts/prepare-assets.mjs",
-    "check:site": "node scripts/check-site.mjs"
+    "check:site": "node scripts/check-site.mjs",
+    "check:signature": "node scripts/check-signature.mjs"
   },
   "dependencies": {
     "next": "^16.4.5",

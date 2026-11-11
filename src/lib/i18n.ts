@@ -1,7 +1,7 @@
 export const locales = ["es", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const isLocale = (value: string): value is Locale => locales.some(locale => locale === value);
-export const concepts = ["tinta", "amplificador", "recortes", "tinta-editorial", "tinta-estudio"] as const;
+export const concepts = ["tinta", "amplificador", "recortes"] as const;
 export type Concept = (typeof concepts)[number];
 export const isConcept = (value: string): value is Concept => concepts.some(concept => concept === value);
 

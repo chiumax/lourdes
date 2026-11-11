@@ -8,7 +8,7 @@ All three now live on `design/postmarked-yours`. The reference is the original p
 | Amplificador | `/es/amplificador` | Charcoal and acid yellow, enormous Anton artist name, hard crops and a gig-poster composition. |
 | Recortes | `/es/recortes` | Sage paper, scarlet cut-out title fragments, ripped portrait strips, high-contrast Bodoni typography and a fuller collage. |
 
-Tinta is the selected direction as of 12 November. Its header and version bar are removed, the original hero signature animation is restored, and Canciones loads the Spotify artist player immediately inside the paper panel instead of the custom track list. Reduced-motion users see the full signature immediately. The small version bar remains on the other two variations, which are unchanged by this refinement. Each version uses the same verified catalogue and straightforward Spanish copy. `/en` and `/en/{variation}` remain English reference pages for translation work; no public language switch is shown for now.
+Tinta is the selected direction as of 12 November. Its header and version bar are removed, the hero signature draws through closely traced strokes, and Canciones loads the Spotify artist player immediately inside the paper panel instead of the custom track list. Reduced-motion users see the full signature immediately. The small version bar remains on the other two variations, which are unchanged by this refinement. Each version uses the same verified catalogue and straightforward Spanish copy. `/en` and `/en/{variation}` remain English reference pages for translation work; no public language switch is shown for now.
 
 ## What remains from the chosen page
 
@@ -41,17 +41,16 @@ The two previous remote/local design branches were removed on 11 November after 
 
 There were no open pull requests to close. Historical Vercel deployment URLs may still exist; deleting a Git branch does not delete its old deployments. All new work uses the existing `design/postmarked-yours` branch.
 
-## Tinta element studies — 12 November
+## Tinta refinement — 12 November
 
-The latest request is for two variations of **Tinta**, with deliberate element styling and a restrained finished-site feel. Original Tinta remains the default and its markup/styles are unchanged. Both studies retain Spanish copy, the animated signature, immediately loaded Spotify player on paper, header-free structure and pausable cut-out footer.
+Editorial and Estudio were rejected and removed. They were routes on this branch, not separate Git branches. Their components, styles, optional footer treatments and unused regular-weight Bodoni font are deleted. Old study URLs permanently redirect to Tinta, preserving the language and query string.
 
-| Study | Route | Element treatment |
-| --- | --- | --- |
-| Editorial | `/es/tinta-editorial` | Actual regular-weight Bodoni Moda paired with DM Sans; fine portrait frame, one small guitar overlap, an underlined listening action, a flat cream player sheet, staggered photo prints and a quieter cream footer. |
-| Estudio | `/es/tinta-estudio` | DM Sans throughout with the existing signature; dark photograph mounts, a fine outlined listening action, flat paper around Spotify, a paired contact sheet and a compact dark footer. |
+Tinta's hero now starts with the actual signature. The genre/location eyebrow and vertical “LOURDES MARTÍN — 01” label are removed. The artist's name remains as screen-reader-only text inside the H1, so the SVG has an accessible heading without a duplicate visible title.
 
-The studies are implemented separately from the original `ArtistPage` styles. Footer treatments are opt-in; the default footer remains unchanged. They use existing artist images and exact release information. No invented quotations, film markings, decorative badges or new content sections are introduced. The existing screenshot crops stay at approximately 270 CSS pixels wide or smaller.
+### Signature motion
 
-Editorial uses the real 400-weight Bodoni file, rather than trying to make the previous 900-weight asset appear light. Estudio uses one font family plus the actual signature. Both remove the original collage's giant arrows, repeated numeric labels and uniform paper rotation; the one overlapping guitar print retains the scrapbook connection.
+Three approaches were considered: a whole-mark ink fade, a word-by-word horizontal reveal, and closely traced pen masks. A fade loses the drawing effect; a horizontal reveal is predictable but looks like a wipe. The chosen treatment uses 18 manually traced gestures, 22–30 SVG units wide, instead of the previous 80-unit masks. Lourdes and Martín have separate masks, divided by the original vector contours because their vertical bounds overlap.
 
-Source review covered 320px gutters, shrinking grids, typography wrapping, focus outlines and reduced-motion behavior. The dark footer has a light focus outline. Builds, TypeScript, lint and HTTP route/resource checks cover all twelve localized pages. The browser/native session remained unavailable, so rendered mobile appearance, animation and playback were not visually verified.
+The same exact filled logo stays in place throughout. Only its visibility mask draws; no final rectangle, opacity crossfade of the whole mark, shape morph or replay loop is used. The two words and final crossbar/accent complete in 3.97 seconds. Linear stroke timing avoids easing to a stop at every letter. Future strokes stay invisible during their delays, preventing stray dots from round line caps. Reduced-motion users see the complete signature immediately, and the animation needs no client JavaScript.
+
+This is a designed reveal of the extracted logo, not a recording of Lourdes writing. Geometry checks compare the finished masks with the original silhouette and inspect sampled progression. The browser connector remained unavailable; actual browser timing and rendered mobile appearance have not been verified.

@@ -8,7 +8,6 @@ const sans = localFont({ src: "../../../public/fonts/dm-sans-latin-400-normal.wo
 const handwriting = localFont({ src: "../../../public/fonts/caveat-latin-400-normal.woff2", variable: "--font-handwriting", display: "swap" });
 const display = localFont({ src: "../../../public/fonts/anton-latin-400-normal.woff2", variable: "--font-display", display: "swap", preload: false });
 const editorial = localFont({ src: "../../../public/fonts/bodoni-moda-latin-900-normal.woff2", variable: "--font-editorial", display: "swap", preload: false });
-const book = localFont({ src: "../../../public/fonts/bodoni-moda-latin-400-normal.woff2", variable: "--font-book", weight: "400", display: "swap", preload: false });
 const mono = localFont({ src: "../../../public/fonts/ibm-plex-mono-latin-400-normal.woff2", variable: "--font-mono", display: "swap", preload: false });
 type Props = { children: React.ReactNode; params: Promise<{ lang: string }> };
 
@@ -30,5 +29,5 @@ export async function generateMetadata({ params }: Omit<Props, "children">): Pro
 export default async function RootLayout({ children, params }: Props) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
-  return <html lang={lang} className={`${sans.variable} ${handwriting.variable} ${display.variable} ${editorial.variable} ${book.variable} ${mono.variable}`}><body><a className="skip-link" href="#main">{getCopy(lang).skip}</a>{children}</body></html>;
+  return <html lang={lang} className={`${sans.variable} ${handwriting.variable} ${display.variable} ${editorial.variable} ${mono.variable}`}><body><a className="skip-link" href="#main">{getCopy(lang).skip}</a>{children}</body></html>;
 }

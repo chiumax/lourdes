@@ -2,9 +2,8 @@
 import assert from "node:assert/strict";
 
 const base = process.env.SITE_URL || "http://localhost:3000";
-const concepts = ["tinta", "tinta-editorial", "tinta-estudio", "amplificador", "recortes"];
-const originalNavigation = ["tinta", "amplificador", "recortes"];
-const legacyConcepts = { postmarked: "tinta", "bedroom-floor": "amplificador", "blue-book": "recortes" };
+const concepts = ["tinta", "amplificador", "recortes"];
+const legacyConcepts = { postmarked: "tinta", "bedroom-floor": "amplificador", "blue-book": "recortes", "tinta-editorial": "tinta", "tinta-estudio": "tinta" };
 const trackIds = ["2mvtMnxyRxaSTgcYTV8JIe", "4SK5CTgzKEBu7pcsSjbqGs", "6c7xGiUPfB8iDrfQ9NJcxz", "7Io1Ws8fngOaPx6HTSKgkW", "2PFr2WppXicoSHknhx9yDS"];
 const checkedAssets = new Set();
 const copy = {
@@ -14,7 +13,7 @@ const copy = {
 
 for (const [locale, text] of Object.entries(copy)) {
   for (const concept of ["", ...concepts]) {
-    const isTinta = !concept || concept.startsWith("tinta");
+    const isTinta = !concept || concept === "tinta";
     const route = `/${locale}${concept ? `/${concept}` : ""}`;
     const response = await fetch(base + route);
     assert.equal(response.status, 200, route);
@@ -37,6 +36,13 @@ for (const [locale, text] of Object.entries(copy)) {
       assert.ok(!html.includes('class="variation-bar"'), `${route}: no variation bar`);
       assert.ok(!html.includes('class="song-list"'), `${route}: custom song list replaced`);
       assert.ok(!html.includes('class="player-toggle"'), `${route}: no player activation step`);
+      const hero = html.match(/<section\b[^>]*\bid="home"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+      assert.ok(hero, `${route}: artist hero present`);
+      assert.ok(!/Pop acústico|Acoustic pop|Mallorca/.test(hero), `${route}: hero eyebrow removed`);
+      assert.ok(!hero.includes("LOURDES MARTÍN — 01"), `${route}: hero margin label removed`);
+      const heading = hero.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] || "";
+      const headingText = heading.replace(/<svg\b[\s\S]*?<\/svg>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+      assert.equal(headingText, "Lourdes Martín", `${route}: readable artist heading independent of animation`);
       assert.equal(iframes.length, 1, `${route}: one immediately rendered player`);
       const player = iframes[0];
       assert.ok(player.includes(`title="${text.player}"`), `${route}: translated player title`);
@@ -49,7 +55,7 @@ for (const [locale, text] of Object.entries(copy)) {
       assert.equal(playerUrl.searchParams.get("locale"), locale, `${route}: player locale`);
       assert.ok(!playerUrl.searchParams.has("autoplay"), `${route}: no autoplay request`);
       assert.equal(animatedSignatures.length, 1, `${route}: one animated hero signature`);
-      assert.ok(/<mask\b/.test(animatedSignatures[0]) && /\bmask="url\(#/.test(animatedSignatures[0]) && /\bstroke(?:=|-)/.test(animatedSignatures[0]), `${route}: signature reveal mask and strokes`);
+      assert.ok(animatedSignatures[0].includes('aria-hidden="true"') && animatedSignatures[0].includes('focusable="false"'), `${route}: decorative signature does not replace the accessible heading`);
     } else {
       assert.ok(/<header\b/.test(html), `${route}: variant header retained`);
       assert.ok(html.includes('class="variation-bar"'), `${route}: variant navigation retained`);
@@ -58,7 +64,7 @@ for (const [locale, text] of Object.entries(copy)) {
       for (const id of trackIds) {
         assert.ok(html.includes(`https://open.spotify.com/track/${id}`), `${route}: real track ${id}`);
       }
-      for (const variation of originalNavigation) {
+      for (const variation of concepts) {
         assert.ok(html.includes(`href="/${locale}/${variation}"`), `${route}: same-language variation ${variation}`);
       }
       assert.ok(html.includes('aria-current="page"'), `${route}: current variation identified`);
@@ -118,4 +124,4 @@ for (const route of ["/fr", "/fr/tinta", "/es/missing", "/en/missing", "/es/tint
   }
 }
 console.log(`PASS redirects: Spanish entry, stale preferences, retired designs, query strings and invalid-route 404s. ${checkedAssets.size} linked resources checked.`);
-console.log("Browser layout, mobile overflow, playback and pause/replay behavior require separate browser verification.");
+console.log("Browser layout, mobile overflow, playback, signature animation/reduced motion and footer pause behavior require separate browser verification.");
