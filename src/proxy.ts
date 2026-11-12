@@ -20,5 +20,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/tinta", "/tinta-editorial", "/tinta-estudio", "/amplificador", "/recortes", "/postmarked", "/bedroom-floor", "/blue-book", "/:lang(es|en)/:old(postmarked|bedroom-floor|blue-book|tinta-editorial|tinta-estudio)"],
+  matcher: ["/", "/tinta", "/carbon", "/rojo", "/azul-electrico", "/tinta-editorial", "/tinta-estudio", "/amplificador", "/recortes", "/postmarked", "/bedroom-floor", "/blue-book", "/:lang(es|en)/:old(postmarked|bedroom-floor|blue-book|tinta-editorial|tinta-estudio)"],
 };

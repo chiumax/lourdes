@@ -1,0 +1,112 @@
+/* Azul eléctrico: cobalt screenprint, a tall portrait and hard-edged photo strips. */
+.page.page { --paper:#193bc9; --ink:#f5efdd; --accent:#e6e565; --panel:#f5efdd; --line:#9aa8e3; --footer-bg:#101829; --footer-ink:#f5efdd; --footer-outline:#d6d4bd; }
+.page::after { opacity:.065; }
+.page .hero { max-width:1320px; padding:60px 70px 90px; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:0 6%; align-items:start; }
+.page .heroIntro { display:contents; }
+.page .signatureName { grid-column:1 / 2; grid-row:1; width:139%; max-width:none; color:#f5efdd; transform:rotate(-8deg); margin:0 0 15px -13px; z-index:4; }
+.page .heroRelease { grid-column:1; grid-row:2; margin:12px 0 0; align-self:start; position:relative; z-index:4; }
+.page .releaseMeta { font-size:10px; gap:17px; }
+.page .releaseMeta > span { opacity:.8; }
+.page .releaseTitle { font:clamp(48px,5.6vw,76px)/.99 var(--font-display),sans-serif; text-transform:uppercase; letter-spacing:-1.5px; margin:21px 0 28px; }
+.page .releaseTitle em { font-style:normal; }
+.page .listenButton { background:#e6e565; color:#17266b; border:0; box-shadow:4px 4px 0 #101829; font-family:var(--font-sans),sans-serif; font-size:13px; gap:26px; padding:14px 19px; }
+.page .heroCollage { grid-column:2; grid-row:1 / 3; padding:43px 20px 86px 34px; margin-top:20px; }
+.page .paperBacking { background:#101829; inset:43px 10px 94px 25px; transform:rotate(3deg); clip-path:none; }
+.page .heroPhoto { padding:7px 7px 0; transform:rotate(-3deg); box-shadow:none; background:#f5efdd; }
+.page .heroPhoto > img { aspect-ratio:4 / 5; object-fit:cover; object-position:55% center; filter:grayscale(1) contrast(1.08); }
+.page .heroPhoto figcaption { background:#f5efdd; color:#1833a5; font:10px/1.5 var(--font-mono),monospace; padding:14px 7px; }
+.page .smallPhoto { width:130px; bottom:9px; left:2px; background:#e6e565; padding:6px 6px 9px; transform:rotate(7deg); box-shadow:3px 3px 0 #101829; }
+.page .smallPhoto img { height:133px; filter:grayscale(1) contrast(1.1); }
+.page .smallPhoto figcaption { font:9px/1.5 var(--font-mono),monospace; color:#17266b; padding-top:8px; }
+.page .scrollLink { color:#f5efdd; left:70px; transform:none; bottom:22px; font-family:var(--font-sans),sans-serif; }
+.page .musicSection { max-width:none; background:#f5efdd; color:#1833a5; margin:0; padding:87px max(55px,calc((100vw - 1160px) / 2)) 92px; grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr); gap:8%; border:0; }
+.page .sectionIntro h2 { font:clamp(60px,7.2vw,96px)/.96 var(--font-display),sans-serif; letter-spacing:-2px; }
+.page .sectionIntro h2 > span { color:#1833a5; }
+.page .sectionIntro > p { font-size:14px; }
+.page .textLink { font:12px var(--font-mono),monospace; gap:30px; }
+.page .songPaper { padding:21px 19px 9px; transform:rotate(-1.6deg); }
+.page .songPaper::before { background:#e8e4d7; box-shadow:none; transform:rotate(.4deg); }
+.page .songPaper::after { background:#193bc9; inset:8px -6px -7px 8px; transform:rotate(1.4deg); }
+.page .songPaper :global(.embed-fallback) { color:#333b55; }
+.page .photosSection { max-width:1240px; padding:74px 60px 65px; border:0; }
+.page .photosHeading { align-items:baseline; }
+.page .photosHeading h2 { font:clamp(46px,5.6vw,76px)/1 var(--font-display),sans-serif; letter-spacing:-1px; }
+.page .photosHeading h2 > span { color:#e6e565; }
+.page .photosHeading > p { font:12px var(--font-mono),monospace; transform:none; }
+.page .photoStrip { grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.8fr); gap:5%; padding:55px 0 30px; align-items:center; }
+.page .photoStrip figure { max-width:280px; padding:7px 7px 10px; background:#f5efdd; box-shadow:5px 5px 0 #101829; }
+.page .photoStrip figure > img { filter:grayscale(1) contrast(1.12); }
+.page .photoStrip figcaption { font:10px/1.5 var(--font-mono),monospace; padding:11px 4px 0; color:#17266b; gap:15px; }
+.page .photoStrip figcaption > span { display:none; }
+.page .momentOne { transform:rotate(2deg); }
+.page .momentTwo { transform:rotate(-5deg) translateY(30px); }
+.page .instagramNote { color:#f5efdd; background:none; padding:20px 0; min-height:0; gap:22px; transform:none; clip-path:none; border-top:3px solid #e6e565; }
+.page .instagramNote > span:not(.noteArrow) { font:32px/1.05 var(--font-display),sans-serif; text-transform:uppercase; letter-spacing:0; }
+.page .instagramNote small { font-size:10px; }
+.page .noteArrow { display:none; }
+.page .instagramNote:hover { transform:none; }
+.page .footer { margin-top:20px; }
+.page .footer::before { display:none; }
+.page .stage { padding:65px 40px 35px; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:6px; }
+.page .signoff { font:12px var(--font-mono),monospace; transform:none; margin-bottom:35px; }
+.page .nameLine { font-size:clamp(43px,5.8vw,74px); }
+.page .nameLine + .nameLine { font-size:clamp(49px,6.4vw,82px); margin-left:24px; }
+.page .letter:nth-child(n) { background:#f5efdd; color:#17266b; box-shadow:none; }
+.page .letter:nth-child(2),.page .letter:nth-child(5) { background:#193bc9; color:#f5efdd; }
+.page .letter:nth-child(3) { background:#e6e565; }
+.page .botanical img,.page .bloom img { filter:grayscale(1) contrast(1.1); }
+.page .cutout { filter:grayscale(1) contrast(1.03) drop-shadow(3px 0 0 #d6d4bd) drop-shadow(-2px -2px 0 #d6d4bd); }
+.page .baseline { border-color:#6b7082; }
+@media(max-width:1000px) {
+  .page .hero { padding:42px 42px 80px; gap:0 4%; }
+  .page .signatureName { width:141%; }
+  .page .heroCollage { padding:43px 10px 85px 20px; }
+  .page .releaseTitle { font-size:clamp(42px,5.7vw,59px); }
+  .page .scrollLink { left:42px; }
+  .page .musicSection { padding:68px 42px 75px; gap:7%; }
+  .page .sectionIntro h2 { font-size:66px; }
+  .page .photosSection { padding:60px 42px; }
+  .page .instagramNote > span:not(.noteArrow) { font-size:26px; }
+  .page .stage { padding-inline:30px; grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .page .nameLine { font-size:clamp(36px,4.9vw,49px); }
+  .page .nameLine + .nameLine { font-size:clamp(41px,5.6vw,56px); margin-left:20px; }
+}
+@media(max-width:900px) and (min-width:701px) {
+  .page .musicSection { grid-template-columns:minmax(0,1fr); gap:32px; }
+  .page .songPaper { width:calc(100% - 16px); max-width:620px; justify-self:center; }
+}
+@media(max-width:700px) {
+  .page .hero { display:flex; flex-direction:column; padding:26px 25px 75px; gap:0; }
+  .page .heroIntro { display:contents; }
+  .page .signatureName { order:0; width:90%; max-width:390px; margin:0 0 -15px 0; align-self:flex-start; }
+  .page .heroCollage { order:1; width:85%; max-width:360px; padding:10px 10px 70px 15px; margin:0 0 0 auto; }
+  .page .heroPhoto > img { aspect-ratio:1; }
+  .page .heroPhoto figcaption { font-size:8px; padding:10px 5px; }
+  .page .paperBacking { inset:15px 5px 76px 8px; }
+  .page .smallPhoto { width:96px; left:-12px; bottom:4px; }
+  .page .smallPhoto img { height:90px; }
+  .page .smallPhoto figcaption { font-size:8px; }
+  .page .heroRelease { order:2; width:100%; margin:18px 0 0; }
+  .page .releaseTitle { font-size:clamp(46px,11.5vw,65px); line-height:1; margin:16px 0 22px; }
+  .page .releaseMeta { font-size:9px; }
+  .page .listenButton { font-size:12px; min-height:48px; }
+  .page .scrollLink { left:25px; bottom:15px; }
+  .page .musicSection { grid-template-columns:minmax(0,1fr); padding:45px 25px 58px; gap:30px; margin:0; }
+  .page .sectionIntro h2 { font-size:clamp(55px,15vw,76px); }
+  .page .sectionIntro > p { margin-top:17px; }
+  .page .songPaper { margin:0 3px; padding:16px 12px 8px; }
+  .page .photosSection { padding:45px 25px 50px; margin:0; }
+  .page .photosHeading { align-items:start; gap:17px; }
+  .page .photosHeading h2 { font-size:clamp(42px,10.8vw,60px); }
+  .page .photoStrip { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:28px 17px; padding:32px 0 12px; align-items:start; }
+  .page .photoStrip figure { width:100%; max-width:280px; padding:5px 5px 8px; box-shadow:3px 3px 0 #101829; }
+  .page .photoStrip figcaption { font-size:9px; padding:8px 2px 0; }
+  .page .momentTwo { transform:rotate(-4deg) translateY(25px); }
+  .page .instagramNote { grid-column:1 / -1; width:100%; max-width:none; margin-top:25px; padding-top:20px; flex-direction:row; align-items:center; justify-content:space-between; gap:25px; }
+  .page .instagramNote > span:not(.noteArrow) { font-size:26px; max-width:170px; }
+  .page .instagramNote small { margin:0; font-size:9px; }
+  .page .stage { grid-template-columns:minmax(0,1fr); padding:35px 25px 18px; gap:15px; }
+  .page .nameLine { font-size:clamp(36px,10.5vw,64px); }
+  .page .nameLine + .nameLine { font-size:clamp(43px,12vw,73px); margin-left:24px; }
+  .page .signoff { margin-bottom:29px; }
+}

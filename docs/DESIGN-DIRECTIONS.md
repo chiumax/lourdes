@@ -64,3 +64,17 @@ The footer retains the same real Lourdes cut-out, 2.7-second stepped keyframes, 
 The rose is a CC0 engraving from the Cleveland Museum of Art; the Spanish-language newspaper is a public-domain 1920 *El Comercio* page from Peru. Only body-column texture is shown, with no claim of artist coverage. Files are served locally, decorative imagery is hidden from assistive technology, and exact source links are recorded in `public/images/collage/SOURCES.md`. No new image generation is used.
 
 On mobile the footer stacks, letter sizes scale down, and the artwork is contained within its own collage stage. The main links remain outside that clipping. Browser automation remains unavailable; build, source layout review and HTTP tests are not a substitute for live mobile review.
+
+## Bolder studies after the production release — 12 November
+
+Approved Tinta, the tilted player, footer-derived 1200 × 630 share card and search metadata were published to `main` as `39882b5` before these studies were built. The following routes are preview-only on `design/postmarked-yours`, all excluded from indexing. The public site and default Tinta remain the approved composition.
+
+| Study | Route | Composition and material |
+| --- | --- | --- |
+| Carbón | `/es/carbon` | Black photocopied poster, monochrome cover on the left, condensed release title on the right, cream music insert and reversed collage footer. |
+| Rojo | `/es/rojo` | Red gig-poster field, cream signature crossing the portrait edge, black condensed song title, full-width Canciones headline, paired photo spread and horizontal Instagram link. |
+| Azul eléctrico | `/es/azul-electrico` | Cobalt screenprint, tall monochrome portrait, enlarged cream signature, acid-paper listening action, paired contact prints and dark navy footer. |
+
+These change composition, print treatment and typography rather than the artist's genre or copy. No invented lyrics, quotes, events, badges or slogans are added. The signed logo, direct Spotify artist player with visibly tilted paper layers, photograph content, archival footer assets and original stepped cutout animation remain. The 320px layouts stack or recompose the same material.
+
+The shared page/footer accept optional class maps, so each study can reposition individual elements without cloning content or changing the approved baseline CSS. Study rules are scoped to their own root class. Photographs cropped from the Instagram screenshot stay at or below 280 CSS pixels; the original release cover and supplied cutout support the larger compositions. Build, lint, types and route/SEO checks cover the previews, including preview-wide noindex. Browser rendering remains unverified because the browser connector is unavailable.

@@ -4,9 +4,11 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { getCopy, type Locale } from "@/lib/i18n";
 import { artist } from "@/lib/artist";
-import s from "./cutout-footer.module.css";
+import { designClasses } from "@/lib/design-classes";
+import baseStyles from "./cutout-footer.module.css";
 
-export function CutoutFooter({ locale, collage = false }: { locale: Locale; collage?: boolean }) {
+export function CutoutFooter({ locale, collage = false, styles }: { locale: Locale; collage?: boolean; styles?: Record<string, string> }) {
+  const s = designClasses(baseStyles, styles);
   const t = getCopy(locale);
   const [visible, setVisible] = useState(false);
   const footer = useRef<HTMLElement>(null);

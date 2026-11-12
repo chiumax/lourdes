@@ -1,0 +1,406 @@
+/* ROJO — a two-colour gig poster, made from the artist's own photographs. */
+.page.page {
+  --paper:#e64a36;
+  --ink:#1c1612;
+  --accent:#1c1612;
+  --panel:#f3ead7;
+  --line:#211b1855;
+  --footer-bg:#211b18;
+  --footer-ink:#f3ead7;
+  --footer-outline:#f3ead7;
+  background:var(--paper);
+}
+
+.page::after { opacity:.075; }
+.page a:focus-visible { outline:3px solid currentColor; outline-offset:5px; }
+
+.page .hero {
+  max-width:1280px;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);
+  grid-template-rows:auto auto;
+  align-items:start;
+  gap:0 5%;
+  padding:45px 66px 100px;
+}
+
+.page .heroIntro { display:contents; }
+.page .hero .signatureName {
+  grid-column:2;
+  grid-row:1;
+  position:relative;
+  z-index:2;
+  width:121%;
+  max-width:none;
+  margin:0 0 -28px -19%;
+  color:var(--panel);
+  transform:rotate(-7deg);
+  transform-origin:50% 55%;
+}
+
+.page .heroRelease {
+  grid-column:2;
+  grid-row:2;
+  margin:0;
+  padding:0 0 42px;
+  position:relative;
+  z-index:2;
+}
+
+.page .releaseMeta {
+  justify-content:space-between;
+  gap:12px;
+  max-width:330px;
+  padding:13px 0 0;
+  border-top:1px solid currentColor;
+  font-size:10px;
+  letter-spacing:.02em;
+}
+.page .releaseMeta > span { opacity:1; }
+.page .releaseTitle {
+  font:400 clamp(48px,6.4vw,82px)/1.04 var(--font-display),sans-serif;
+  text-transform:uppercase;
+  letter-spacing:-.025em;
+  margin:22px 0 28px;
+}
+.page .releaseTitle em { font:inherit; }
+.page .listenButton {
+  min-height:50px;
+  padding:12px 0;
+  border:0;
+  border-bottom:2px solid currentColor;
+  color:var(--ink);
+  background:transparent;
+  box-shadow:none;
+  font-size:12px;
+  gap:40px;
+}
+.page .listenButton:hover { transform:none; text-decoration:underline; }
+.page .listenButton > span { font-size:27px; }
+
+.page .heroCollage {
+  grid-column:1;
+  grid-row:1 / 3;
+  align-self:center;
+  width:100%;
+  max-width:none;
+  padding:90px 14px 92px 0;
+}
+.page .paperBacking {
+  inset:96px 4px 99px 6px;
+  background:var(--ink);
+  transform:rotate(2deg);
+}
+.page .heroPhoto {
+  padding:0 0 13px;
+  background:var(--panel);
+  transform:rotate(-3deg);
+  box-shadow:none;
+}
+.page .heroPhoto figcaption {
+  padding:12px 12px 0;
+  font:10px/1.4 var(--font-mono),monospace;
+  gap:12px;
+}
+.page .smallPhoto {
+  width:126px;
+  left:auto;
+  right:0;
+  bottom:15px;
+  padding:5px 5px 9px;
+  transform:rotate(7deg);
+  box-shadow:1px 2px 0 #211b1833;
+}
+.page .smallPhoto img { height:127px; }
+.page .smallPhoto figcaption { font-size:17px; }
+.page .scrollLink {
+  bottom:25px;
+  left:66px;
+  transform:none;
+  gap:35px;
+  font-size:10px;
+}
+
+/* One big printed heading, then the record sleeve and a narrow listening note. */
+.page .musicSection {
+  max-width:none;
+  margin:0;
+  padding:58px max(66px,calc((100vw - 1148px) / 2)) 85px;
+  background:var(--panel);
+  border:0;
+  display:grid;
+  grid-template-columns:minmax(0,1.22fr) minmax(0,.78fr);
+  grid-template-rows:auto auto 1fr;
+  gap:0 9%;
+  align-items:start;
+}
+.page .sectionIntro { display:contents; }
+.page .sectionIntro h2 {
+  grid-column:1 / -1;
+  grid-row:1;
+  font-size:clamp(82px,12vw,156px);
+  line-height:1;
+  letter-spacing:-.035em;
+  margin:0 0 50px -4px;
+  overflow-wrap:normal;
+}
+.page .sectionIntro h2 > span { color:var(--paper); }
+.page .sectionIntro > p {
+  grid-column:2;
+  grid-row:2;
+  border-top:2px solid var(--ink);
+  padding-top:18px;
+  margin:18px 0 0;
+  max-width:250px;
+  font-size:17px;
+  line-height:1.5;
+}
+.page .textLink {
+  grid-column:2;
+  grid-row:3;
+  justify-self:start;
+  margin-top:17px;
+  font-size:12px;
+  gap:50px;
+}
+.page .musicSection .songPaper {
+  grid-column:1;
+  grid-row:2 / 4;
+  margin:0 8px;
+  padding:24px 20px 12px;
+  transform:rotate(-2deg);
+}
+.page .musicSection .songPaper::before { background:#fffaf0; }
+.page .musicSection .songPaper::after {
+  background:var(--paper);
+  inset:10px -7px -8px 6px;
+  transform:rotate(2.4deg);
+}
+.page .musicSection .songPaper iframe { border-radius:3px; }
+
+.page .photosSection {
+  max-width:1280px;
+  margin:0 auto;
+  padding:70px 66px 75px;
+  border:0;
+}
+.page .photosHeading { align-items:end; gap:25px; }
+.page .photosHeading h2 {
+  max-width:660px;
+  font-size:clamp(52px,6.8vw,88px);
+  line-height:1.02;
+  letter-spacing:-.025em;
+}
+.page .photosHeading h2 > span { color:var(--panel); }
+.page .photosHeading > p {
+  font:12px/1.5 var(--font-mono),monospace;
+  transform:none;
+  padding-bottom:5px;
+}
+.page .photoStrip {
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:0 8%;
+  align-items:start;
+  padding:55px 0 0;
+}
+.page .photoStrip figure {
+  width:100%;
+  max-width:280px;
+  padding:0 0 14px;
+  box-shadow:2px 3px 0 #211b1833;
+}
+.page .momentOne { justify-self:end; transform:rotate(-3deg); }
+.page .momentTwo { justify-self:start; transform:rotate(3deg); margin-top:65px; }
+.page .photoStrip figcaption { font-size:22px; padding:15px 13px 0; }
+.page .photoStrip figcaption > span { display:none; }
+.page .instagramNote {
+  grid-column:1 / -1;
+  justify-self:stretch;
+  width:100%;
+  max-width:none;
+  min-height:110px;
+  margin-top:80px;
+  padding:19px 0;
+  border-top:2px solid currentColor;
+  background:transparent;
+  color:var(--ink);
+  clip-path:none;
+  transform:none;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center;
+  gap:26px;
+}
+.page .instagramNote > span:not(.noteArrow) {
+  font:400 clamp(27px,3.5vw,44px)/1.12 var(--font-display),sans-serif;
+  text-transform:uppercase;
+  letter-spacing:-.02em;
+}
+.page .noteArrow { font-size:70px; align-self:center; }
+.page .instagramNote small { font-size:10px; margin:0; }
+.page .instagramNote:hover { transform:none; }
+.page .instagramNote:hover > span:not(.noteArrow) { text-decoration:underline; }
+
+/* Reverse the final spread: the moving portrait is the closing image on the left. */
+.page .footer { margin-top:0; }
+.page .footer .stage {
+  max-width:1280px;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  gap:4%;
+  padding:65px 66px 40px;
+  align-items:center;
+}
+.page .footer .footerCopy { grid-column:2; grid-row:1; padding:0 0 10px; }
+.page .footer .signoff { font-size:30px; margin-bottom:40px; }
+.page .footer .nameLine { font-size:clamp(38px,4.8vw,61px); }
+.page .footer .nameLine + .nameLine { font-size:clamp(44px,5.4vw,70px); margin-left:28px; }
+.page .footer .letter { box-shadow:none; }
+.page .footer .letter:nth-child(3),
+.page .footer .letter:nth-child(7) { background:var(--paper); color:var(--panel); }
+.page .footer .letter:nth-child(2),
+.page .footer .letter:nth-child(5) { background:#f3ead7; color:#211b18; }
+.page .footer .cutoutStage { grid-column:1; grid-row:1; width:100%; padding-top:48px; }
+.page .footer .socials { margin-top:38px; font-size:12px; }
+.page .baseline { max-width:1148px; margin:0 auto; font-size:10px; }
+
+@media (max-width:1050px) {
+  .page .hero { padding:35px 42px 80px; gap:0 4%; }
+  .page .hero .signatureName { margin-bottom:-15px; }
+  .page .heroRelease { padding-bottom:25px; }
+  .page .releaseTitle { font-size:clamp(44px,6.2vw,65px); }
+  .page .heroCollage { padding-top:80px; padding-bottom:88px; }
+  .page .paperBacking { top:86px; bottom:94px; }
+  .page .smallPhoto { width:111px; bottom:8px; }
+  .page .smallPhoto img { height:112px; }
+  .page .smallPhoto figcaption { font-size:15px; }
+  .page .scrollLink { left:42px; bottom:18px; }
+  .page .musicSection { padding:45px 42px 65px; gap:0 7%; }
+  .page .sectionIntro h2 { margin-bottom:35px; }
+  .page .sectionIntro > p { font-size:15px; }
+  .page .photosSection { padding:55px 42px 65px; }
+  .page .photosHeading { align-items:start; }
+  .page .photosHeading > p { padding-top:8px; }
+  .page .photoStrip { gap:0 7%; }
+  .page .instagramNote { grid-template-columns:auto minmax(0,1fr); gap:12px 22px; }
+  .page .instagramNote small { grid-column:2; }
+  .page .noteArrow { grid-row:1 / 3; }
+  .page .footer .stage { padding:45px 35px 30px; gap:2%; }
+  .page .footer .nameLine { font-size:clamp(32px,4.5vw,48px); }
+  .page .footer .nameLine + .nameLine { font-size:clamp(38px,5vw,54px); margin-left:20px; }
+  .page .baseline { margin:0 42px; }
+}
+
+@media (max-width:700px) {
+  .page .hero {
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto auto auto;
+    gap:0;
+    padding:23px 24px 72px;
+  }
+  .page .hero .signatureName {
+    grid-column:1;
+    grid-row:1;
+    width:95%;
+    max-width:450px;
+    justify-self:center;
+    margin:0 0 -32px;
+    transform:rotate(-6deg);
+  }
+  .page .heroCollage {
+    grid-column:1;
+    grid-row:2;
+    width:91%;
+    max-width:390px;
+    justify-self:start;
+    padding:0 0 60px 3px;
+  }
+  .page .paperBacking { inset:7px -7px 66px 9px; }
+  .page .heroPhoto { padding-bottom:11px; transform:rotate(-2deg); }
+  .page .heroPhoto figcaption { font-size:9px; padding:11px 10px 0; }
+  .page .smallPhoto { right:-18px; bottom:2px; width:100px; padding:4px 4px 7px; }
+  .page .smallPhoto img { height:98px; }
+  .page .smallPhoto figcaption { font-size:14px; }
+  .page .heroRelease {
+    grid-column:1;
+    grid-row:3;
+    width:100%;
+    max-width:440px;
+    justify-self:center;
+    padding:28px 0 0;
+  }
+  .page .releaseMeta { max-width:none; font-size:10px; padding-top:13px; }
+  .page .releaseTitle { font-size:clamp(47px,12vw,72px); margin:20px 0; }
+  .page .listenButton { font-size:12px; gap:38px; }
+  .page .scrollLink { left:24px; bottom:9px; font-size:10px; gap:25px; }
+
+  .page .musicSection {
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto auto auto auto;
+    gap:0;
+    margin:0;
+    padding:38px 24px 52px;
+  }
+  .page .sectionIntro h2 {
+    grid-column:1;
+    grid-row:1;
+    font-size:clamp(53px,15vw,94px);
+    margin:0 0 21px -2px;
+    letter-spacing:-.025em;
+  }
+  .page .sectionIntro > p {
+    grid-column:1;
+    grid-row:2;
+    max-width:none;
+    margin:0 0 28px;
+    padding:0;
+    border:0;
+    font-size:13px;
+  }
+  .page .musicSection .songPaper {
+    grid-column:1;
+    grid-row:3;
+    width:auto;
+    margin:0 4px;
+    padding:17px 10px 10px;
+    transform:rotate(-1deg);
+  }
+  .page .musicSection .songPaper::after { inset:8px -4px -6px 5px; transform:rotate(1.4deg); }
+  .page .textLink { grid-column:1; grid-row:4; margin-top:25px; }
+
+  .page .photosSection { margin:0; padding:42px 24px 45px; }
+  .page .photosHeading { gap:15px; }
+  .page .photosHeading h2 { font-size:clamp(43px,11.7vw,65px); max-width:500px; }
+  .page .photosHeading > p { font-size:11px; padding:0; }
+  .page .photoStrip { padding-top:34px; gap:0 5%; }
+  .page .photoStrip figure { width:100%; max-width:280px; padding:0 0 9px; }
+  .page .momentOne { justify-self:start; transform:rotate(-3deg); }
+  .page .momentTwo { margin-top:55px; transform:rotate(3deg); }
+  .page .photoStrip figcaption { padding:9px 6px 0; font-size:17px; line-height:1.05; }
+  .page .instagramNote { min-height:100px; margin-top:40px; padding:19px 0; gap:12px 15px; }
+  .page .instagramNote > span:not(.noteArrow) { font-size:clamp(26px,7vw,38px); line-height:1.15; }
+  .page .noteArrow { font-size:49px; }
+  .page .instagramNote small { font-size:10px; }
+
+  .page .footer .stage { grid-template-columns:minmax(0,1fr); gap:18px; padding:40px 24px 20px; }
+  .page .footer .footerCopy { grid-column:1; grid-row:1; justify-self:center; width:min(100%,400px); padding:0; }
+  .page .footer .signoff { margin-bottom:28px; font-size:28px; }
+  .page .footer .nameLine { font-size:clamp(35px,10vw,56px); }
+  .page .footer .nameLine + .nameLine { font-size:clamp(41px,11.5vw,65px); margin-left:25px; }
+  .page .footer .socials { margin-top:30px; gap:27px; }
+  .page .footer .cutoutStage { grid-column:1; grid-row:2; width:min(100%,410px); padding-top:42px; }
+  .page .baseline { margin:0 24px; font-size:9px; }
+}
+
+@media (max-width:370px) {
+  .page .hero { padding-inline:21px; }
+  .page .hero .signatureName { margin-bottom:-24px; }
+  .page .heroCollage { width:90%; }
+  .page .smallPhoto { width:90px; right:-16px; }
+  .page .smallPhoto img { height:87px; }
+  .page .releaseTitle { font-size:44px; }
+  .page .musicSection { padding-inline:21px; }
+  .page .photosSection { padding-inline:21px; }
+  .page .photosHeading h2 { font-size:40px; }
+  .page .footer .stage { padding-inline:21px; }
+  .page .footer .nameLine { font-size:34px; }
+  .page .footer .nameLine + .nameLine { font-size:40px; margin-left:22px; }
+}

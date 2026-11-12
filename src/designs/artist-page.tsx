@@ -8,16 +8,18 @@ import { artist } from "@/lib/artist";
 import { featured, trackUrl } from "@/lib/music";
 import { getCopy, type Concept, type Locale } from "@/lib/i18n";
 import { artistStructuredData } from "@/lib/seo";
-import s from "./artist-page.module.css";
+import { designClasses } from "@/lib/design-classes";
+import baseStyles from "./artist-page.module.css";
 
-export function ArtistPage({ concept, locale }: { concept: Concept; locale: Locale }) {
+export function ArtistPage({ concept, locale, designName, styles }: { concept: Concept; locale: Locale; designName?: Concept; styles?: Record<string, string> }) {
+  const s = designClasses(baseStyles, styles);
   const t = getCopy(locale);
   const isTinta = concept === "tinta";
   const isCuttings = concept === "recortes";
   const isAmp = concept === "amplificador";
 
-  return <div className={`${s.page} ${s[concept]}`} data-design={concept}>
-    {isTinta && locale === "es" && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(artistStructuredData()).replace(/</g, "\\u003c") }} />}
+  return <div className={`${s.page} ${s[concept]}`} data-design={designName ?? concept}>
+    {isTinta && !designName && locale === "es" && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(artistStructuredData()).replace(/</g, "\\u003c") }} />}
     {!isTinta && <><ConceptNav current={concept} locale={locale} />
     <header className={s.header}>
       <a className={s.wordmark} href="#home">lourdes martín</a>
@@ -93,6 +95,6 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
         </div>
       </section>
     </main>
-    <CutoutFooter locale={locale} collage={isTinta} />
+    <CutoutFooter locale={locale} collage={isTinta} styles={styles} />
   </div>;
 }

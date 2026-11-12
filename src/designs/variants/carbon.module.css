@@ -1,0 +1,301 @@
+/* CARBÓN — a photocopied gig poster, built from the approved Tinta content. */
+.page.page {
+  --paper:#171816;
+  --ink:#eee9dc;
+  --accent:#eee9dc;
+  --panel:#f5f0e4;
+  --line:#585951;
+  --footer-bg:#e8e3d5;
+  --footer-ink:#1a1b18;
+  --footer-outline:#eee9dc;
+  background:var(--paper);
+  color:var(--ink);
+}
+
+.page::after { opacity:.08; }
+.page .hero {
+  max-width:1290px;
+  padding:73px 65px 105px;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+  align-items:center;
+  gap:7%;
+}
+.page .heroIntro { grid-column:2; grid-row:1; padding:0 0 28px; }
+.page .signatureName {
+  max-width:470px;
+  width:100%;
+  color:#f2eddf;
+  margin:0 0 30px -7px;
+  transform:rotate(-3deg);
+}
+.page .heroRelease { margin:0; }
+.page .releaseMeta { font-size:10px; letter-spacing:.08em; gap:18px; }
+.page .releaseMeta > span { opacity:.75; }
+.page .releaseTitle {
+  font:normal clamp(48px,6.3vw,82px)/1.02 var(--font-display),sans-serif;
+  letter-spacing:-.035em;
+  text-transform:uppercase;
+  margin:23px 0 31px;
+}
+.page .releaseTitle em { font:inherit; }
+.page .listenButton {
+  background:#eee9dc;
+  color:#171816;
+  border:1px solid #eee9dc;
+  box-shadow:4px 4px 0 #171816,5px 5px 0 #8b8b80;
+  min-height:48px;
+  padding:14px 20px;
+  gap:44px;
+  transform:rotate(-1deg);
+}
+.page .listenButton:hover { transform:rotate(-1deg) translateY(-2px); }
+.page .heroCollage {
+  grid-column:1;
+  grid-row:1;
+  width:100%;
+  padding:8px 15px 95px 12px;
+}
+.page .paperBacking {
+  inset:3px 1px 116px 19px;
+  background:#dad8cf url('/images/collage/newspaper-el-comercio-1920.jpg') center / 100% auto;
+  filter:grayscale(1) contrast(1.2);
+  transform:rotate(5deg);
+  opacity:.85;
+}
+.page .heroPhoto {
+  padding:11px 11px 15px;
+  background:#e9e5da;
+  transform:rotate(-3deg);
+  box-shadow:7px 9px 0 #0004;
+}
+.page .heroPhoto > img { filter:grayscale(1) contrast(1.13); }
+.page .heroPhoto figcaption {
+  font:10px/1.4 var(--font-mono),monospace;
+  color:#272823;
+  padding:16px 3px 0;
+  gap:12px;
+}
+.page .smallPhoto {
+  left:auto;
+  right:-2px;
+  bottom:11px;
+  width:137px;
+  padding:7px 7px 10px;
+  transform:rotate(8deg);
+  background:#c6c4b9;
+  box-shadow:4px 4px 0 #0005;
+}
+.page .smallPhoto img { height:139px; filter:grayscale(1) contrast(1.18); }
+.page .smallPhoto figcaption { font:16px var(--font-handwriting),cursive; }
+.page .scrollLink {
+  left:65px;
+  bottom:24px;
+  transform:none;
+  border-bottom:1px solid #77786c;
+  padding:0 0 6px;
+  gap:36px;
+}
+
+/* A cream paper insert interrupts the dark poster rather than another dark row. */
+.page .musicSection {
+  max-width:none;
+  margin:0;
+  padding:90px max(6vw,calc((100vw - 1120px)/2)) 94px;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:9%;
+  border:0;
+  background:#e8e3d5;
+  color:#191a17;
+  position:relative;
+}
+.page .musicSection::before {
+  content:"";
+  position:absolute;
+  inset:-10px 0 auto;
+  height:12px;
+  background:inherit;
+  clip-path:polygon(0 50%,4% 20%,8% 65%,14% 25%,19% 55%,25% 15%,33% 55%,41% 20%,49% 65%,56% 25%,64% 55%,73% 10%,82% 50%,90% 20%,96% 55%,100% 25%,100% 100%,0 100%);
+}
+.page .sectionIntro h2 {
+  font:normal clamp(64px,7.2vw,96px)/.98 var(--font-display),sans-serif;
+  letter-spacing:-.035em;
+  text-transform:uppercase;
+}
+.page .sectionIntro h2 > span { color:inherit; }
+.page .sectionIntro > p { max-width:290px; font-size:14px; line-height:1.65; margin-top:24px; }
+.page .textLink { margin-top:18px; font-size:12px; gap:40px; }
+.page.page .songPaper {
+  margin:0 8px;
+  padding:20px 17px 12px;
+  transform:rotate(-2.8deg);
+  color:#252620;
+}
+.page.page .songPaper::before {
+  background:#fbf7ed;
+  transform:rotate(.8deg);
+  box-shadow:1px 3px 0 #17181630;
+}
+.page.page .songPaper::after {
+  inset:11px -7px -10px 10px;
+  background:#353630;
+  transform:rotate(2deg);
+}
+.page .songPaper :global(iframe) { border-radius:3px; }
+.page .songPaper :global(.embed-fallback) { color:#45463c; min-height:44px; display:flex; align-items:center; }
+
+.page .photosSection {
+  max-width:1190px;
+  margin:0 auto;
+  padding:79px 40px 95px;
+  border:0;
+}
+.page .photosHeading { align-items:center; gap:30px; }
+.page .photosHeading h2 {
+  font:normal clamp(48px,6vw,76px)/1 var(--font-display),sans-serif;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+  max-width:700px;
+}
+.page .photosHeading h2 > span { color:#8a8c7d; }
+.page .photosHeading > p { font-size:29px; transform:rotate(-5deg); }
+.page .photoStrip {
+  grid-template-columns:minmax(0,280px) minmax(0,260px) minmax(0,1fr);
+  gap:7%;
+  padding:65px 10px 20px;
+  align-items:center;
+}
+.page .photoStrip figure {
+  width:100%;
+  max-width:280px;
+  padding:8px 8px 12px;
+  background:#e7e3d7;
+  color:#1e211a;
+  box-shadow:4px 5px 0 #0005;
+}
+.page .photoStrip figure > img { filter:grayscale(1) contrast(1.16); }
+.page .photoStrip figcaption { font-size:22px; padding-top:12px; }
+.page .momentOne { transform:rotate(-2deg); }
+.page .momentTwo { transform:rotate(6deg) translateY(39px); }
+.page .instagramNote {
+  min-height:222px;
+  max-width:260px;
+  padding:22px;
+  background:#e8e3d5;
+  color:#1b1c18;
+  transform:rotate(-4deg);
+  box-shadow:none;
+}
+.page .instagramNote > span:not(.noteArrow) {
+  font:normal 38px/1.04 var(--font-display),sans-serif;
+  text-transform:uppercase;
+  letter-spacing:-.02em;
+}
+.page .noteArrow { align-self:flex-start; font-size:52px; }
+.page .instagramNote small { font-size:10px; }
+
+/* Reverse the footer composition to echo the cover/name poster above. */
+.page .footer { margin-top:0; background:#e8e3d5; color:#1a1b18; }
+.page .stage {
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  max-width:1200px;
+  padding:55px 50px 35px;
+  gap:6%;
+  align-items:center;
+}
+.page .footerCopy { grid-column:2; grid-row:1; padding:0 0 18px; align-self:center; }
+.page .signoff { margin:0 0 30px; font-size:29px; transform:rotate(-3deg); }
+.page .clippedName { gap:16px; }
+.page .nameLine { font-size:clamp(42px,5.1vw,65px); }
+.page .nameLine + .nameLine { margin-left:18px; font-size:clamp(48px,5.7vw,73px); }
+.page .letter { background:#fbf7ea; color:#171816; box-shadow:1px 2px 0 #1a1b1820; }
+.page .letter:nth-child(2),.page .letter:nth-child(5) { background:#171816; color:#f4efe2; }
+.page .letter:nth-child(3),.page .letter:nth-child(7) { background:#b5b5a8; color:#171816; }
+.page .socials { gap:30px; margin-top:33px; }
+.page .socials a { min-height:44px; }
+.page .cutoutStage { grid-column:1; grid-row:1; margin:0; padding:40px 5px 15px; width:100%; }
+.page .cutout { filter:grayscale(1) contrast(1.13) drop-shadow(3px 0 0 #77786b) drop-shadow(-2px -2px 0 #77786b); }
+.page .botanical,.page .bloom { filter:grayscale(1) contrast(1.17); }
+.page .newsprint { filter:grayscale(1) contrast(1.2); background-color:#d2d0c2; }
+.page .baseline { max-width:1100px; margin:0 auto; border-color:#77786a; }
+
+@media(max-width:1050px) {
+  .page .hero { padding:55px 40px 90px; gap:6%; }
+  .page .signatureName { margin-bottom:26px; }
+  .page .releaseTitle { font-size:clamp(45px,6.4vw,67px); }
+  .page .releaseMeta { font-size:9px; gap:12px; }
+  .page .heroCollage { padding-inline:8px; }
+  .page .smallPhoto { width:112px; right:0; bottom:8px; }
+  .page .smallPhoto img { height:111px; }
+  .page .scrollLink { left:40px; }
+  .page .musicSection { padding:72px 40px 80px; gap:7%; }
+  .page .sectionIntro h2 { font-size:clamp(58px,7.4vw,77px); }
+  .page .photosSection { padding:65px 40px 80px; }
+  .page .photosHeading { flex-wrap:wrap; gap:20px; }
+  .page .photosHeading > p { font-size:27px; }
+  .page .photoStrip { grid-template-columns:repeat(3,minmax(0,1fr)); gap:5%; }
+  .page .photoStrip figcaption { font-size:19px; gap:10px; }
+  .page .instagramNote { padding:19px; min-height:210px; }
+  .page .instagramNote > span:not(.noteArrow) { font-size:30px; }
+  .page .stage { padding-inline:35px; gap:4%; }
+  .page .nameLine { font-size:clamp(36px,5vw,50px); }
+  .page .nameLine + .nameLine { font-size:clamp(43px,5.8vw,59px); margin-left:18px; }
+  .page .baseline { margin-inline:35px; }
+}
+
+@media(max-width:700px) {
+  .page .hero { grid-template-columns:minmax(0,1fr); padding:40px 28px 82px; gap:35px; }
+  .page .heroIntro { grid-column:1; grid-row:1; max-width:470px; padding:0; }
+  .page .signatureName { width:96%; margin:0 0 30px; }
+  .page .releaseMeta { font-size:9px; gap:20px; }
+  .page .releaseTitle { font-size:clamp(47px,12vw,72px); margin:20px 0 28px; letter-spacing:-.025em; }
+  .page .listenButton { gap:35px; font-size:11px; }
+  .page .heroCollage { grid-column:1; grid-row:2; width:100%; max-width:420px; padding:8px 15px 88px 11px; }
+  .page .paperBacking { inset:3px 5px 103px 20px; }
+  .page .heroPhoto { padding:8px 8px 12px; }
+  .page .heroPhoto figcaption { font-size:9px; gap:10px; padding-top:13px; }
+  .page .smallPhoto { width:112px; bottom:3px; right:3px; }
+  .page .smallPhoto figcaption { font-size:16px; }
+  .page .scrollLink { left:28px; bottom:17px; font-size:10px; }
+  .page .musicSection { grid-template-columns:minmax(0,1fr); padding:55px 27px 65px; gap:35px; }
+  .page .sectionIntro h2 { font-size:clamp(56px,16vw,83px); }
+  .page .sectionIntro > p { font-size:13px; margin-top:18px; }
+  .page .textLink { margin-top:8px; }
+  .page.page .songPaper { padding:16px 12px 6px; margin:0 4px; transform:rotate(-2deg); }
+  .page.page .songPaper::after { inset:8px -4px -7px 7px; transform:rotate(1.7deg); }
+  .page .photosSection { margin:0; padding:52px 27px 72px; }
+  .page .photosHeading { align-items:start; flex-direction:column; gap:20px; }
+  .page .photosHeading h2 { font-size:clamp(45px,12vw,64px); }
+  .page .photosHeading > p { font-size:27px; }
+  .page .photoStrip { grid-template-columns:minmax(0,1fr); padding:38px 8px 0; gap:34px; }
+  .page .photoStrip figure { width:80%; max-width:280px; }
+  .page .momentTwo { justify-self:end; transform:rotate(5deg); }
+  .page .photoStrip figcaption { font-size:21px; }
+  .page .instagramNote { width:83%; max-width:280px; min-height:205px; margin-top:7px; padding:22px; justify-self:start; }
+  .page .instagramNote > span:not(.noteArrow) { font-size:34px; }
+  .page .stage { grid-template-columns:minmax(0,1fr); padding:42px 26px 22px; gap:27px; }
+  .page .footerCopy { grid-column:1; grid-row:1; padding:0; }
+  .page .cutoutStage { grid-column:1; grid-row:2; width:min(100%,410px); margin:0 auto; padding-top:35px; }
+  .page .signoff { font-size:28px; margin-bottom:25px; }
+  .page .nameLine { font-size:clamp(36px,10.5vw,65px); }
+  .page .nameLine + .nameLine { font-size:clamp(43px,12vw,73px); margin-left:22px; }
+  .page .socials { margin-top:27px; }
+  .page .baseline { margin-inline:26px; gap:8px 20px; }
+}
+
+@media(max-width:370px) {
+  .page .hero { padding-inline:23px; }
+  .page .releaseTitle { font-size:47px; }
+  .page .releaseMeta { font-size:8px; gap:16px; }
+  .page .musicSection,.page .photosSection { padding-inline:23px; }
+  .page .sectionIntro h2 { font-size:56px; }
+  .page .heroPhoto figcaption { font-size:8px; }
+  .page .stage { padding-inline:23px; }
+  .page .nameLine { font-size:36px; }
+  .page .nameLine + .nameLine { font-size:43px; margin-left:18px; }
+  .page .baseline { margin-inline:23px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .page .cutout { animation:none; transform:none; }
+  .page .listenButton { transition:none; }
+}

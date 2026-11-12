@@ -1,6 +1,6 @@
 # Lourdes Martín
 
-Tinta, the selected artist site, on `design/postmarked-yours`.
+The approved Tinta site is on `main`; three bolder studies live on `design/postmarked-yours`.
 
 ## Run
 
@@ -13,13 +13,18 @@ Node 20.9+ is required. Open http://localhost:3000; the public entry is Spanish.
 
 | Variation | Route |
 | --- | --- |
-| Tinta — cream and burgundy, closest to the original | `/es` or `/es/tinta` |
+| Tinta — approved cream and burgundy site | `/es` or `/es/tinta` |
+| Carbón — monochrome photocopied poster | `/es/carbon` |
+| Rojo — red gig poster with oversized type | `/es/rojo` |
+| Azul eléctrico — cobalt screenprint and photo strips | `/es/azul-electrico` |
 
 Tinta opens directly on the animated signature, without a header, genre/location eyebrow or decorative artist label. Canciones loads Spotify immediately on layered paper with no extra card heading or numbered section labels. The footer adds archival roses, a newspaper clipping and magazine-style lettering around the original moving cut-out; there is no pause button. The rejected Editorial and Estudio studies have been removed; their old URLs permanently redirect to Tinta. Earlier Amplificador and Recortes explorations remain at `/es/amplificador` and `/es/recortes`. English reference routes use `/en` in place of `/es` for Rafa's copy work; the public site currently has no language switch.
 
 ## Editing
 
-- `src/designs/artist-page.tsx` and its CSS module: original Tinta and the earlier explorations.
+- `src/designs/artist-page.tsx` and its CSS module: approved Tinta markup and the earlier explorations.
+- `src/designs/variants/`: three scoped style studies using the same content and behavior.
+- `src/lib/design-classes.ts`: adds study classes without changing the baseline classes.
 - `src/components/signature.tsx`, `src/lib/signature-motion.json` and `src/app/signature.css`: the exact signature silhouette and its sequenced pen masks.
 - `src/components/cutout-footer.tsx`: stepped paper animation, archival collage layers and visibility gating.
 - `src/lib/i18n.ts`: Spanish and English copy, including alt text and metadata.
@@ -48,7 +53,7 @@ npm run check:site
 npm run check:seo
 ```
 
-The HTTP checks cover all eight pages, localized content, metadata, five song links, media and local resources, section anchors, footer visibility markup, Spanish entry, retired URLs and 404s. The signature geometry check compares the completed masks against the original artwork and samples the reveal for missing or disappearing ink. These checks do not verify rendered layout, playback or browser animation interaction. Browser automation was unavailable during this revision; mobile/device visual review remains outstanding. In this Next.js build, translated 404 recovery requires JavaScript; normal artist pages are server-rendered.
+The HTTP checks cover all fourteen pages, localized content, metadata, five song links, media and local resources, section anchors, footer visibility markup, Spanish entry, retired URLs and 404s. The signature geometry check compares the completed masks against the original artwork and samples the reveal for missing or disappearing ink. These checks do not verify rendered layout, playback or browser animation interaction. Browser automation was unavailable during this revision; mobile/device visual review remains outstanding. In this Next.js build, translated 404 recovery requires JavaScript; normal artist pages are server-rendered.
 
 All runtime assets and font licences are committed; no secrets or environment variables are needed. The original `.context` attachments are optional source material, not runtime dependencies. `npm run assets:prepare` prepares the original assets only and requires those attachments. The footer derivative is documented separately.
 
@@ -59,3 +64,5 @@ All runtime assets and font licences are committed; no secrets or environment va
 `src/app/robots.ts` allows crawlers to read page directives, and `src/app/sitemap.ts` lists only `/es`. Spanish Tinta includes MusicGroup, WebSite and WebPage JSON-LD with verified artist identity and social links. Metadata contains localized titles/descriptions, Open Graph and large-image X/Twitter cards.
 
 The footer-derived share image is `public/images/lourdes-social.png` (1200 × 630). Rebuild it with `npm run assets:social`; all source images and fonts are local. It is static and requires neither image-generation credentials nor a live render on share requests. `npm run check:seo` checks raw crawler-facing HTML, canonicals, structured data, indexing directives, sitemap and the served image. Set `EXPECT_NOINDEX=1` when checking a preview build.
+
+The three new style studies were created after publishing approved Tinta, its footer share image and SEO metadata to `main` at commit `39882b5`. They are preview-only changes, with no public navigation added and no change to the default page. Their English paths are available for copy review. The original signature reveal, visibly tilted Spotify card, existing artwork, footer movement and reduced-motion handling stay in all three.

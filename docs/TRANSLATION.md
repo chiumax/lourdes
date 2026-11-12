@@ -1,6 +1,6 @@
 # Spanish copy and English reference
 
-The public entry point opens Spanish. The visible site has no language switch, following Lourdes's request to launch in Spanish. English remains available at `/en`, `/en/tinta`, `/en/amplificador` and `/en/recortes` as a reference for Rafa while reviewing the copy. Spanish routes use `/es` instead of `/en`.
+The public entry point opens Spanish. The visible site has no language switch, following Lourdes's request to launch in Spanish. English remains available at `/en`, `/en/tinta`, `/en/amplificador` and `/en/recortes` as a reference for Rafa while reviewing the copy. Spanish routes use `/es` instead of `/en`. The newer style studies also have `/en/carbon`, `/en/rojo` and `/en/azul-electrico` reference routes; these share the same dictionary and remain noindex.
 
 Edit the Spanish and English entries in [`src/lib/i18n.ts`](../src/lib/i18n.ts). The dictionary has matching typed keys, so a missing translation is caught by TypeScript. Keep the same key in each language; change its text rather than the component markup. The earlier explorations retain the same artist catalogue. Choosing Tinta, Amplificador or Recortes changes the art direction, not the artist's identity or catalogue.
 

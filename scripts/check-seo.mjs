@@ -11,7 +11,7 @@ const titles = {
   es: "Lourdes Martín | Pop acústico desde Mallorca",
   en: "Lourdes Martín | Acoustic pop from Mallorca",
 };
-const concepts = ["", "tinta", "amplificador", "recortes"];
+const concepts = ["", "tinta", "amplificador", "recortes", "carbon", "rojo", "azul-electrico"];
 const imageAlts = new Map();
 
 function decode(value) {
