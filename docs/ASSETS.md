@@ -1,6 +1,6 @@
 # Asset inventory and provenance
 
-All image sources below were supplied by the user in this workspace. Original attachments are excluded from Git; runtime derivatives are included. Preserve this inventory when handing the project to a designer or another developer.
+Artist photography and identity references below were supplied by the user. Archival collage material is sourced separately and credited at the end of this file. Original attachments are excluded from Git; runtime derivatives are included. Preserve this inventory when handing the project to a designer or another developer.
 
 ## Source references
 
@@ -92,10 +92,20 @@ The runtime uses three additional locally served OFL fonts, obtained from their 
 
 The supplied `.context/attachments/CKRRwV/image.png` is the source for `public/images/lourdes-cutout.png` (1274×1235) and its runtime derivative `public/images/lourdes-cutout.webp` (1000×969, approximately 120 KB). Built-in `image_gen.imagegen` extracted the seated figure with real transparency; no CLI/API fallback was used. The source PNG remains untouched. Generative extraction can change tiny edges/textures; the derivative is not represented as an untouched photograph.
 
-The footer animates this single cut-out through six small stepped transforms. It does not manufacture facial poses or claim to be a video. Motion pauses offscreen, is user-pausable, and is disabled under `prefers-reduced-motion`.
+The footer animates this single cut-out through six small stepped transforms. It does not manufacture facial poses or claim to be a video. Motion pauses offscreen and is disabled under `prefers-reduced-motion`. The pause button was removed at the user’s request in the layered-footer revision.
 
 Exact extraction prompt:
 
 > Use case: background-extraction. Asset type: transparent photographic paper cut-out for an artist website footer. Input image 1 is the edit target. Remove ONLY the environment and UI: the chair, cabin, windows, scenery, arrow button and carousel dots. Isolate the seated woman in precisely her existing curled-up pose, including all visible hair, black jacket, hands, pale blue jeans and both white shoes. Preserve her actual facial features, identity, expression, gaze, body proportions, clothing folds, original lighting and photographic grain unchanged. She rests her cheek on her hand; keep this pose. Maintain the entire visible silhouette without cropping the shoes or head. No invented new pose, no beautification, no illustration, no paper outline, no text, no shadow. Genuine transparent background with clean alpha around hair and clothes; all negative spaces transparent. Leave a small even transparent margin around the full figure.
 
 The two collage reference images are direction references only. Their subjects, example text, promotional badges and third-party imagery are not used in the site. The ripped portrait is built with CSS fragments of the existing Lourdes release artwork.
+
+## Sourced collage layers — 12 November
+
+| File | Source | Treatment |
+| --- | --- | --- |
+| `public/images/collage/redoute-rose.webp` | Henri Joseph Redouté, *Rosa Centifolia Anglica Rubra*, 1817–1824; [Cleveland Museum of Art](https://www.clevelandart.org/art/1943.137), CC0 | 1000 × 1307 WebP; botanical paper silhouette clipped in CSS |
+| `public/images/collage/redoute-rose-bloom.webp` | Detail of the same museum scan, CC0 | 900 × 635 WebP; smaller foreground flower scrap |
+| `public/images/collage/newspaper-el-comercio-1920.jpg` | *El Comercio*, Peru, 1920; [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:El_Comercio,_1_de_mayo_de_1920.jpg), marked public domain | Original 600 × 880 JPEG; lower-left body columns shown via CSS background sizing, with unrelated masthead and portrait outside the crop |
+
+The print scans retain their original paper. CSS masks and rotations create the scraps; no generated imagery or background removal was used. The newspaper is Spanish-language Peruvian archival material, not an artist press clipping or a Spanish-origin publication. See the committed `public/images/collage/SOURCES.md` for licence links. Decorative flowers and paper have no spoken content.

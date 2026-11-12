@@ -20,7 +20,6 @@ Suggested baseline vocabulary:
 | Full catalogue | Todas las canciones en Spotify | All songs on Spotify |
 | Photography link | Más fotos en Instagram | More photos on Instagram |
 | Footer sign-off | Hasta la próxima. | See you around. |
-| Pause control | Pausar animación | Pause animation |
 | Return link | Volver arriba | Back to top |
 
 This table is a writing reference; the dictionary is the source of truth for the current UI. Rafa can revise the Spanish wording independently of the English reference as long as it serves the same action or content.
@@ -34,8 +33,8 @@ This table is a writing reference; the dictionary is the source of truth for the
 
 ## Review the whole experience
 
-Translate image descriptions, navigation labels, the skip link, player controls, motion controls, error recovery text and page descriptions as well as the large headings. Do not add a new English language selector until Lourdes wants an English public version.
+Translate image descriptions, navigation labels, the skip link, player controls, error recovery text and page descriptions as well as the large headings. Do not add a new English language selector until Lourdes wants an English public version.
 
 After editing, run `npm run lint`, `npm run build` and `npm run typecheck`. With a production server running, `npm run check:site` checks Spanish and English pages and the existing route redirects. If an intentional copy change affects an asserted heading, update the expected wording in that check as well.
 
-Finally, review Spanish on a narrow phone viewport and with larger system text. The HTTP checks cannot verify line breaks, clipping, touch targets, keyboard focus, screen-reader announcements, animation controls or actual playback. Browser visual and interaction verification was unavailable during preparation of these variations.
+Finally, review Spanish on a narrow phone viewport and with larger system text. The HTTP checks cannot verify line breaks, clipping, touch targets, keyboard focus, screen-reader announcements, animation behavior or actual playback. Browser visual and interaction verification was unavailable during preparation of these variations.

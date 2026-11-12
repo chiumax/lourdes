@@ -58,20 +58,20 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
 
       <section className={s.musicSection} id="music" aria-labelledby="music-title">
         <div className={s.sectionIntro}>
-          <span className={s.sectionNumber}>01 / {t.music}</span>
+          {!isTinta && <span className={s.sectionNumber}>01 / {t.music}</span>}
           <h2 id="music-title">{t.selected}<span aria-hidden="true">.</span></h2>
           <p>{t.musicIntro}</p>
           <a className={s.textLink} href={artist.spotify} target="_blank" rel="noreferrer">Spotify <span aria-hidden="true">↗</span></a>
         </div>
         <div className={s.songPaper}>
-          <div className={s.paperHeading}><span>{isTinta ? "LM / Spotify" : "LM / 01—05"}</span><span>{t.music}</span></div>
+          {!isTinta && <div className={s.paperHeading}><span>LM / 01—05</span><span>{t.music}</span></div>}
           {isTinta ? <SpotifyEmbed locale={locale} /> : <SongList locale={locale} />}
         </div>
       </section>
 
       <section className={s.photosSection} id="photos" aria-labelledby="photos-title">
         <div className={s.photosHeading}>
-          <div><span className={s.sectionNumber}>02 / {t.photos}</span><h2 id="photos-title">{t.cameraRoll}<span aria-hidden="true">.</span></h2></div>
+          <div>{!isTinta && <span className={s.sectionNumber}>02 / {t.photos}</span>}<h2 id="photos-title">{t.cameraRoll}<span aria-hidden="true">.</span></h2></div>
           <p>{t.photosIntro}</p>
         </div>
         <div className={s.photoStrip}>
@@ -91,6 +91,6 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
         </div>
       </section>
     </main>
-    <CutoutFooter locale={locale} />
+    <CutoutFooter locale={locale} collage={isTinta} />
   </div>;
 }

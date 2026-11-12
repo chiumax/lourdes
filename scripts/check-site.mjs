@@ -7,8 +7,8 @@ const legacyConcepts = { postmarked: "tinta", "bedroom-floor": "amplificador", "
 const trackIds = ["2mvtMnxyRxaSTgcYTV8JIe", "4SK5CTgzKEBu7pcsSjbqGs", "6c7xGiUPfB8iDrfQ9NJcxz", "7Io1Ws8fngOaPx6HTSKgkW", "2PFr2WppXicoSHknhx9yDS"];
 const checkedAssets = new Set();
 const copy = {
-  es: { title: "Música", skip: "Saltar al contenido", songs: "Canciones", photos: "Entre canciones", pause: "Pausar animación", player: "Escucha a Lourdes Martín en Spotify" },
-  en: { title: "Music", skip: "Skip to content", songs: "Songs", photos: "Between songs", pause: "Pause animation", player: "Listen to Lourdes Martín on Spotify" },
+  es: { title: "Música", skip: "Saltar al contenido", songs: "Canciones", photos: "Entre canciones", player: "Escucha a Lourdes Martín en Spotify" },
+  en: { title: "Music", skip: "Skip to content", songs: "Songs", photos: "Between songs", player: "Listen to Lourdes Martín on Spotify" },
 };
 
 for (const [locale, text] of Object.entries(copy)) {
@@ -36,6 +36,10 @@ for (const [locale, text] of Object.entries(copy)) {
       assert.ok(!html.includes('class="variation-bar"'), `${route}: no variation bar`);
       assert.ok(!html.includes('class="song-list"'), `${route}: custom song list replaced`);
       assert.ok(!html.includes('class="player-toggle"'), `${route}: no player activation step`);
+      assert.ok(!html.includes("LM / Spotify"), `${route}: Spotify card label removed`);
+      const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || "";
+      const mainText = main.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+      assert.ok(!/01\s*\/\s*(Música|Music)|02\s*\/\s*(Fotos|Photos)/.test(mainText), `${route}: numbered section eyebrows removed`);
       const hero = html.match(/<section\b[^>]*\bid="home"[^>]*>([\s\S]*?)<\/section>/)?.[1];
       assert.ok(hero, `${route}: artist hero present`);
       assert.ok(!/Pop acústico|Acoustic pop|Mallorca/.test(hero), `${route}: hero eyebrow removed`);
@@ -73,9 +77,10 @@ for (const [locale, text] of Object.entries(copy)) {
       assert.ok(!html.includes(`href="/${locale}/${old}"`), `${route}: no retired design link ${old}`);
     }
 
-    assert.ok(html.includes('data-motion="running"'), `${route}: animated footer state`);
-    const buttons = [...html.matchAll(/<button\b[^>]*>[\s\S]*?<\/button>/g)].map(match => match[0]);
-    assert.ok(buttons.some(button => button.includes(text.pause) && !button.includes("aria-pressed=")), `${route}: labeled motion control`);
+    const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1];
+    assert.ok(footer, `${route}: artist footer present`);
+    assert.ok(/<footer\b[^>]*\bdata-visible="false"/.test(html), `${route}: footer motion waits for visibility`);
+    assert.ok(!/<button\b/.test(footer), `${route}: footer controls removed`);
 
     for (const match of html.matchAll(/href="#([^"]+)"/g)) {
       assert.ok(html.includes(`id="${match[1]}"`), `${route}: anchor ${match[1]}`);
@@ -93,7 +98,7 @@ for (const [locale, text] of Object.entries(copy)) {
         checkedAssets.add(url);
       }
     }
-    console.log(`PASS ${route}: language, variation, content, music, footer controls, links, resources`);
+    console.log(`PASS ${route}: language, variation, content, music, footer, links, resources`);
   }
 }
 
@@ -124,4 +129,4 @@ for (const route of ["/fr", "/fr/tinta", "/es/missing", "/en/missing", "/es/tint
   }
 }
 console.log(`PASS redirects: Spanish entry, stale preferences, retired designs, query strings and invalid-route 404s. ${checkedAssets.size} linked resources checked.`);
-console.log("Browser layout, mobile overflow, playback, signature animation/reduced motion and footer pause behavior require separate browser verification.");
+console.log("Browser layout, mobile overflow, playback, signature animation, footer motion and reduced-motion behavior require separate browser verification.");

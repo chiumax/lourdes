@@ -23,7 +23,7 @@ const es = {
   cameraRoll: "Entre canciones", photosIntro: "Del carrete.",
   acousticCaption: "Con la guitarra", guitarCaption: "Al lado de la piscina", instagram: "Más fotos en Instagram",
   songLink: "Escuchar", duration: "Duración",
-  footerLine: "Hasta la próxima.", pauseMotion: "Pausar animación", playMotion: "Reanudar animación",
+  footerLine: "Hasta la próxima.",
   footerPhotoAlt: "Recorte de Lourdes sentada con una chaqueta negra y las rodillas recogidas",
   notFound: "Esta página no está aquí.", returnHome: "Volver al inicio",
 } as const;
@@ -46,7 +46,7 @@ const en: Dictionary = {
   cameraRoll: "Between songs", photosIntro: "From the camera roll.",
   acousticCaption: "With the guitar", guitarCaption: "Beside the pool", instagram: "More photos on Instagram",
   songLink: "Listen to", duration: "Duration",
-  footerLine: "See you around.", pauseMotion: "Pause animation", playMotion: "Resume animation",
+  footerLine: "See you around.",
   footerPhotoAlt: "A cut-out of Lourdes seated in a black jacket with her knees drawn up",
   notFound: "This page isn’t here.", returnHome: "Back to home",
 };
