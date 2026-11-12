@@ -7,6 +7,7 @@ import { CutoutFooter } from "@/components/cutout-footer";
 import { artist } from "@/lib/artist";
 import { featured, trackUrl } from "@/lib/music";
 import { getCopy, type Concept, type Locale } from "@/lib/i18n";
+import { artistStructuredData } from "@/lib/seo";
 import s from "./artist-page.module.css";
 
 export function ArtistPage({ concept, locale }: { concept: Concept; locale: Locale }) {
@@ -16,6 +17,7 @@ export function ArtistPage({ concept, locale }: { concept: Concept; locale: Loca
   const isAmp = concept === "amplificador";
 
   return <div className={`${s.page} ${s[concept]}`} data-design={concept}>
+    {isTinta && locale === "es" && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(artistStructuredData()).replace(/</g, "\\u003c") }} />}
     {!isTinta && <><ConceptNav current={concept} locale={locale} />
     <header className={s.header}>
       <a className={s.wordmark} href="#home">lourdes martín</a>

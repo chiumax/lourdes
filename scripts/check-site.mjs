@@ -7,8 +7,8 @@ const legacyConcepts = { postmarked: "tinta", "bedroom-floor": "amplificador", "
 const trackIds = ["2mvtMnxyRxaSTgcYTV8JIe", "4SK5CTgzKEBu7pcsSjbqGs", "6c7xGiUPfB8iDrfQ9NJcxz", "7Io1Ws8fngOaPx6HTSKgkW", "2PFr2WppXicoSHknhx9yDS"];
 const checkedAssets = new Set();
 const copy = {
-  es: { title: "Música", skip: "Saltar al contenido", songs: "Canciones", photos: "Entre canciones", player: "Escucha a Lourdes Martín en Spotify" },
-  en: { title: "Music", skip: "Skip to content", songs: "Songs", photos: "Between songs", player: "Listen to Lourdes Martín on Spotify" },
+  es: { title: "Lourdes Martín | Pop acústico desde Mallorca", skip: "Saltar al contenido", songs: "Canciones", photos: "Entre canciones", player: "Escucha a Lourdes Martín en Spotify" },
+  en: { title: "Lourdes Martín | Acoustic pop from Mallorca", skip: "Skip to content", songs: "Songs", photos: "Between songs", player: "Listen to Lourdes Martín on Spotify" },
 };
 
 for (const [locale, text] of Object.entries(copy)) {
@@ -20,7 +20,7 @@ for (const [locale, text] of Object.entries(copy)) {
     const html = await response.text();
     assert.ok(html.includes(`<html lang="${locale}"`), `${route}: document language`);
     assert.ok(html.includes(`data-design="${concept || "tinta"}"`), `${route}: expected variation`);
-    assert.ok(html.includes(`<title>Lourdes Martín — ${text.title}</title>`), `${route}: translated title`);
+    assert.ok(html.includes(`<title>${text.title}</title>`), `${route}: translated title`);
     assert.ok(html.includes(text.skip) && html.includes(text.songs) && html.includes(text.photos), `${route}: translated body`);
     assert.equal((html.match(/<h1\b/g) || []).length, 1, `${route}: one artist H1`);
     assert.equal((html.match(/<main\b/g) || []).length, 1, `${route}: one main landmark`);
@@ -112,8 +112,8 @@ async function checkRedirect(path, target, status, cookie = "") {
 
 // Spanish is the public entry language, including visitors with an older English preference.
 for (const cookie of ["", "lm-language=en", "lm-language=es", "lm-language=fr"]) {
-  await checkRedirect("/", "/es", 307, cookie);
-  for (const concept of concepts) await checkRedirect(`/${concept}`, `/es/${concept}`, 307, cookie);
+  await checkRedirect("/", "/es", 308, cookie);
+  for (const concept of concepts) await checkRedirect(`/${concept}`, `/es/${concept}`, concept === "tinta" ? 308 : 307, cookie);
 }
 for (const [old, replacement] of Object.entries(legacyConcepts)) {
   await checkRedirect(`/${old}`, `/es/${replacement}`, 308);

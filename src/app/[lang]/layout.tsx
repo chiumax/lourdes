@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { getCopy, isLocale, locales } from "@/lib/i18n";
+import { pageMetadata, siteUrl } from "@/lib/seo";
 import "../globals.css";
 
 const sans = localFont({ src: "../../../public/fonts/dm-sans-latin-400-normal.woff2", variable: "--font-sans", display: "swap" });
@@ -16,13 +17,10 @@ export function generateStaticParams() { return locales.map(lang => ({ lang }));
 export async function generateMetadata({ params }: Omit<Props, "children">): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
-  const t = getCopy(lang);
   return {
-    metadataBase: new URL(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
-    title: `Lourdes Martín — ${t.music}`,
-    description: t.description,
+    metadataBase: new URL(siteUrl),
+    ...pageMetadata(lang),
     icons: { icon: [{ url: "/favicon.ico", sizes: "16x16 32x32 48x48" }, { url: "/icon.png", sizes: "192x192", type: "image/png" }], apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }] },
-    openGraph: { title: "Lourdes Martín", description: t.description, type: "website", locale: lang === "es" ? "es_ES" : "en_GB", alternateLocale: lang === "es" ? "en_GB" : "es_ES" },
   };
 }
 

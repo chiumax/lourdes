@@ -109,3 +109,9 @@ The two collage reference images are direction references only. Their subjects, 
 | `public/images/collage/newspaper-el-comercio-1920.jpg` | *El Comercio*, Peru, 1920; [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:El_Comercio,_1_de_mayo_de_1920.jpg), marked public domain | Original 600 × 880 JPEG; lower-left body columns shown via CSS background sizing, with unrelated masthead and portrait outside the crop |
 
 The print scans retain their original paper. CSS masks and rotations create the scraps; no generated imagery or background removal was used. The newspaper is Spanish-language Peruvian archival material, not an artist press clipping or a Spanish-origin publication. See the committed `public/images/collage/SOURCES.md` for licence links. Decorative flowers and paper have no spoken content.
+
+## Footer social image — 12 November
+
+`public/images/lourdes-social.png` is a 1200 × 630 static PNG built from the approved footer's existing person, archival rose/newspaper assets, burgundy paper and mixed-font name. Generate it with `npm run assets:social`. `scripts/generate-social-image.mjs` uses local Next ImageResponse font rendering and Sharp/SVG composition; no network or new image generation is involved. The asset preserves the original supplied likeness.
+
+WOFF companions for Anton, Bodoni Moda and IBM Plex Mono live in `public/fonts/social/` because ImageResponse requires a compatible font format. Their original licences remain at the parent font directory; `public/fonts/social/README.md` records provenance. DM Sans uses the already installed Fontsource package.

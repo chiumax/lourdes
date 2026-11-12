@@ -57,7 +57,7 @@ This is a designed reveal of the extracted logo, not a recording of Lourdes writ
 
 ## Paper card and layered footer — 12 November
 
-Tinta drops the numbered Música/Fotos eyebrows and the “LM / Spotify” card heading. The Spotify controls sit level inside a cream paper mount with a subtle irregular lower edge and one offset dusty-rose backing sheet. Only the paper is rotated. The heading and accessible iframe title still identify the section/player.
+Tinta drops the numbered Música/Fotos eyebrows and the “LM / Spotify” card heading. The Spotify controls tilt with their cream paper mount with a subtle irregular lower edge and one offset dusty-rose backing sheet. The complete card rotates by 1.25 degrees, including the iframe; the second sheet has its own small offset. The heading and accessible iframe title still identify the section/player.
 
 The footer retains the same real Lourdes cut-out, 2.7-second stepped keyframes, offscreen pausing and reduced-motion behavior. The pause button is removed at the user's request. Stationary layers around the moving figure add depth: an old newspaper scrap behind her left side, a botanical rose print behind her right shoulder and a smaller bloom in front of the lower corner. Her name uses individually mounted magazine-style letters rather than an extra slogan. The composition uses the supplied reference's layering, not its cycling imagery or text.
 

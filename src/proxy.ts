@@ -15,7 +15,8 @@ export function proxy(request: NextRequest) {
   target.pathname = replacement
     ? `/${localized ? parts[0] : "es"}/${replacement}`
     : `/es${target.pathname === "/" ? "" : target.pathname}`;
-  return NextResponse.redirect(target, replacement ? 308 : 307);
+  const permanent = replacement || request.nextUrl.pathname === "/" || request.nextUrl.pathname === "/tinta";
+  return NextResponse.redirect(target, permanent ? 308 : 307);
 }
 
 export const config = {
