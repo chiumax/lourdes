@@ -97,7 +97,7 @@ for (const match of html.matchAll(/(?:src|href|poster)="(\/[^"#]*)"/g)) {
 assert.equal((await fetch(base + "/brand/lourdes-martin-lettering.svg")).status, 200, "lettering used by the CSS mask");
 console.log(`PASS ${route}: document, sections, hero, music, concerts, videos, socials, ${images.length} images, ${checked.size} local resources`);
 
-// Routing: one public page. The root, the old English pages and the removed designs all land on it.
+// Routing: one public page. The bare domain lands on it; the removed designs and English pages are gone.
 async function checkRedirect(path) {
   const redirect = await fetch(base + path + "?source=review", { redirect: "manual" });
   assert.equal(redirect.status, 308, `${path}: permanent redirect`);
@@ -105,10 +105,10 @@ async function checkRedirect(path) {
   assert.equal(location.pathname, "/es", `${path}: lands on the Spanish page`);
   assert.equal(location.search, "?source=review", `${path}: query retained`);
 }
-for (const path of ["/", "/en", "/en/tinta", ...retired.flatMap(design => [`/${design}`, `/es/${design}`])]) await checkRedirect(path);
-for (const path of ["/fr", "/es/missing", "/es/missing/deeper"]) {
+await checkRedirect("/");
+for (const path of ["/fr", "/en", "/en/tinta", "/es/missing", "/es/missing/deeper", ...retired.flatMap(design => [`/${design}`, `/es/${design}`])]) {
   const missing = await fetch(base + path);
   assert.equal(missing.status, 404, path);
 }
-console.log(`PASS routing: root, English and ${retired.length} removed design names redirect to /es with their query; unknown routes are 404.`);
+console.log(`PASS routing: the root redirects to /es with its query; English, the ${retired.length} removed design names and unknown routes are 404.`);
 console.log("Not covered here: layout, mobile overflow, animation, video and Spotify playback, photo dragging, reduced motion. Check those in a browser.");

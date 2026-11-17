@@ -9,7 +9,7 @@ npm ci
 npm run dev
 ```
 
-Node 20.9+ is required. Open http://localhost:3000; every other path redirects to `/es`.
+Node 20.9+ is required. Open http://localhost:3000; it redirects to `/es`, the only page.
 
 ## Editing
 
@@ -43,7 +43,7 @@ npm run check:site
 npm run check:seo
 ```
 
-`check:site` covers the rendered page (sections, navigation anchors, song and video links, social links, the one up-front player, image attributes, every local resource) and routing (redirects to `/es`, 404s). `check:seo` covers crawler-facing metadata, structured data, robots, the sitemap and the share image. Set `SITE_URL` to check another origin and `EXPECT_NOINDEX=1` for a preview build.
+`check:site` covers the rendered page (sections, navigation anchors, song and video links, social links, the one up-front player, image attributes, every local resource) and routing (the root redirect and 404s for everything else). `check:seo` covers crawler-facing metadata, structured data, robots, the sitemap and the share image. Set `SITE_URL` to check another origin and `EXPECT_NOINDEX=1` for a preview build.
 
 Neither check opens a browser. Layout, mobile overflow, animation, video and Spotify playback, photo dragging and reduced-motion behaviour need a manual look.
 
