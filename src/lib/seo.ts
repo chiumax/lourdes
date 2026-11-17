@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { artist } from "@/lib/artist";
-import type { Concept, Locale } from "@/lib/i18n";
 
 // The public origin must never follow an immutable Vercel deployment hostname.
 export const siteUrl = "https://lourdes-rosy.vercel.app";
@@ -9,40 +8,31 @@ export const socialImage = "/images/lourdes-social.png";
 export const isPreviewDeployment = process.env.VERCEL_ENV === "preview";
 
 export const seoCopy = {
-  es: {
-    title: "Lourdes Martín | Pop acústico desde Mallorca",
-    description: "Web oficial de Lourdes Martín, artista de pop acústico de Mallorca. Canciones, videoclips, conciertos y fotos.",
-    imageAlt: "El nombre de Lourdes Martín escrito a mano en azul sobre una playa al atardecer, rodeado de estrellas",
-  },
-  en: {
-    title: "Lourdes Martín | Acoustic pop from Mallorca",
-    description: "The official website of Lourdes Martín, an acoustic pop artist from Mallorca. Listen to her songs on Spotify and find her photographs on Instagram.",
-    imageAlt: "Lourdes Martín in a collage of cut-out lettering, roses and newspaper on a burgundy background",
-  },
+  title: "Lourdes Martín | Pop acústico desde Mallorca",
+  description: "Web oficial de Lourdes Martín, artista de pop acústico de Mallorca. Canciones, videoclips, conciertos y fotos.",
+  imageAlt: "El nombre de Lourdes Martín escrito a mano en azul sobre una playa al atardecer, rodeado de estrellas",
 } as const;
 
-export function pageMetadata(locale: Locale, concept: Concept = "tinta"): Metadata {
-  const copy = seoCopy[locale];
-  const canonical = absoluteUrl(concept === "tinta" ? `/${locale}` : `/${locale}/${concept}`);
-  // English is a copy-review page for now. Design studies are also unlisted.
-  const index = !isPreviewDeployment && locale === "es" && concept === "tinta";
+export function pageMetadata(): Metadata {
+  const canonical = absoluteUrl("/es");
+  // Vercel previews must not compete with the public page.
+  const index = !isPreviewDeployment;
   return {
-    title: copy.title,
-    description: copy.description,
+    title: seoCopy.title,
+    description: seoCopy.description,
     alternates: { canonical },
     robots: {
       index, follow: true,
       googleBot: { index, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
     },
     openGraph: {
-      type: "website", url: canonical, siteName: artist.name,
-      locale: locale === "es" ? "es_ES" : "en_GB",
-      title: copy.title, description: copy.description,
-      images: [{ url: absoluteUrl(socialImage), width: 1200, height: 630, type: "image/png", alt: copy.imageAlt }],
+      type: "website", url: canonical, siteName: artist.name, locale: "es_ES",
+      title: seoCopy.title, description: seoCopy.description,
+      images: [{ url: absoluteUrl(socialImage), width: 1200, height: 630, type: "image/png", alt: seoCopy.imageAlt }],
     },
     twitter: {
-      card: "summary_large_image", title: copy.title, description: copy.description,
-      images: [{ url: absoluteUrl(socialImage), alt: copy.imageAlt }],
+      card: "summary_large_image", title: seoCopy.title, description: seoCopy.description,
+      images: [{ url: absoluteUrl(socialImage), alt: seoCopy.imageAlt }],
     },
   };
 }
@@ -64,7 +54,7 @@ export function artistStructuredData() {
       },
       {
         "@type": "WebPage", "@id": absoluteUrl("/es#webpage"),
-        url: absoluteUrl("/es"), name: seoCopy.es.title, description: seoCopy.es.description,
+        url: absoluteUrl("/es"), name: seoCopy.title, description: seoCopy.description,
         inLanguage: "es", isPartOf: { "@id": absoluteUrl("/#website") },
         about: { "@id": absoluteUrl("/#artist") },
         primaryImageOfPage: { "@type": "ImageObject", url: absoluteUrl(socialImage), width: 1200, height: 630 },

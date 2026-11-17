@@ -1,6 +1,6 @@
 # Lourdes Martín
 
-Tinta, the selected artist site, on `design/postmarked-yours`.
+The official site of Lourdes Martín, published from `main` at https://lourdes-rosy.vercel.app/es. One page, in Spanish, built from the portfolio she supplied: her own lettering, her Pantone palette and her photos.
 
 ## Run
 
@@ -9,35 +9,30 @@ npm ci
 npm run dev
 ```
 
-Node 20.9+ is required. Open http://localhost:3000; the public entry is Spanish.
-
-| Variation | Route |
-| --- | --- |
-| Tinta — cream and burgundy, closest to the original | `/es` or `/es/tinta` |
-
-Tinta opens directly on the animated signature, without a header, genre/location eyebrow or decorative artist label. Canciones loads Spotify immediately on layered paper with no extra card heading or numbered section labels. The footer adds archival roses, a newspaper clipping and magazine-style lettering around the original moving cut-out; there is no pause button. The rejected Editorial and Estudio studies have been removed; their old URLs permanently redirect to Tinta. Earlier Amplificador and Recortes explorations remain at `/es/amplificador` and `/es/recortes`. English reference routes use `/en` in place of `/es` for Rafa's copy work; the public site currently has no language switch.
+Node 20.9+ is required. Open http://localhost:3000; every other path redirects to `/es`.
 
 ## Editing
 
-- `src/designs/artist-page.tsx` and its CSS module: original Tinta and the earlier explorations.
-- `src/components/signature.tsx`, `src/lib/signature-motion.json` and `src/app/signature.css`: the exact signature silhouette and its sequenced pen masks.
-- `src/components/cutout-footer.tsx`: stepped paper animation, archival collage layers and visibility gating.
-- `src/lib/i18n.ts`: Spanish and English copy, including alt text and metadata.
-- `src/lib/music.ts`: verified Spotify songs and featured artwork.
-- `src/lib/default-concept.ts`: default variation.
-- `src/proxy.ts`: Spanish public entry and retired-route redirects.
+| To change | Edit |
+| --- | --- |
+| Concert dates | `src/lib/concerts.ts`. Add a line to the list; past dates drop off on the next deploy. With no dates the section shows an empty state. |
+| The featured single and song list | `src/lib/music.ts` |
+| Videoclips and the featured video | `src/lib/videos.ts`. The "lo último del canal" row comes from the YouTube channel feed and refreshes daily. |
+| Social profiles | `src/lib/artist.ts` and `src/lib/social.ts` |
+| Photos, frame colours and tilt | `src/lib/photos.ts` |
+| Page layout, copy and styling | `src/designs/estrella.tsx` and `estrella.module.css` |
+| Title, description and share image | `src/lib/seo.ts`, `public/images/lourdes-social.png` |
 
-[Design directions](docs/DESIGN-DIRECTIONS.md) · [Translation guide](docs/TRANSLATION.md) · [Assets and exact cut-out prompt](docs/ASSETS.md)
+Interactive pieces are small client components in `src/components/`: `sparkle-stage` (pointer parallax and tap bursts), `vinyl` (plays the single through Spotify's iFrame API on first press), `video-stage` (click-to-play YouTube) and `photo-wall` (drag and full-screen view). The rest renders on the server.
 
-The approved Tinta site is published from `main` at https://lourdes-rosy.vercel.app/. The existing Vercel Git integration builds production from `main` and previews from `design/postmarked-yours`.
+[Asset inventory](docs/ASSETS.md)
 
 ## Checks
 
 ```sh
 npm run lint
-npm run build
 npm run typecheck
-npm run check:signature
+npm run build
 npm start
 ```
 
@@ -48,14 +43,8 @@ npm run check:site
 npm run check:seo
 ```
 
-The HTTP checks cover all eight pages, localized content, metadata, five song links, media and local resources, section anchors, footer visibility markup, Spanish entry, retired URLs and 404s. The signature geometry check compares the completed masks against the original artwork and samples the reveal for missing or disappearing ink. These checks do not verify rendered layout, playback or browser animation interaction. Browser automation was unavailable during this revision; mobile/device visual review remains outstanding. In this Next.js build, translated 404 recovery requires JavaScript; normal artist pages are server-rendered.
+`check:site` covers the rendered page (sections, navigation anchors, song and video links, social links, the one up-front player, image attributes, every local resource) and routing (redirects to `/es`, 404s). `check:seo` covers crawler-facing metadata, structured data, robots, the sitemap and the share image. Set `SITE_URL` to check another origin and `EXPECT_NOINDEX=1` for a preview build.
 
-All runtime assets and font licences are committed; no secrets or environment variables are needed. The original `.context` attachments are optional source material, not runtime dependencies. `npm run assets:prepare` prepares the original assets only and requires those attachments. The footer derivative is documented separately.
+Neither check opens a browser. Layout, mobile overflow, animation, video and Spotify playback, photo dragging and reduced-motion behaviour need a manual look.
 
-## Search and social sharing
-
-`src/lib/seo.ts` pins canonical URLs to the public origin. `/es` is the public page; `/es/tinta` consolidates to it through its canonical tag. English reference pages and design studies carry `noindex,follow`; Vercel previews are also noindex. There is no English hreflang promotion until that translation becomes public. The root permanently redirects to Spanish.
-
-`src/app/robots.ts` allows crawlers to read page directives, and `src/app/sitemap.ts` lists only `/es`. Spanish Tinta includes MusicGroup, WebSite and WebPage JSON-LD with verified artist identity and social links. Metadata contains localized titles/descriptions, Open Graph and large-image X/Twitter cards.
-
-The footer-derived share image is `public/images/lourdes-social.png` (1200 × 630). Rebuild it with `npm run assets:social`; all source images and fonts are local. It is static and requires neither image-generation credentials nor a live render on share requests. `npm run check:seo` checks raw crawler-facing HTML, canonicals, structured data, indexing directives, sitemap and the served image. Set `EXPECT_NOINDEX=1` when checking a preview build.
+No secrets or environment variables are needed.
