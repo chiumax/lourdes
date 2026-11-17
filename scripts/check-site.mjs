@@ -1,132 +1,114 @@
-// Production HTTP checks. These verify rendered content and routing, not browser layout or interaction.
+// Production HTTP checks for the single Spanish page. These verify rendered content and routing,
+// not browser layout, animation, playback or dragging.
 import assert from "node:assert/strict";
 
 const base = process.env.SITE_URL || "http://localhost:3000";
-const concepts = ["tinta", "amplificador", "recortes"];
-const legacyConcepts = { postmarked: "tinta", "bedroom-floor": "amplificador", "blue-book": "recortes", "tinta-editorial": "tinta", "tinta-estudio": "tinta" };
+const route = "/es";
+const sections = ["inicio", "single", "musica", "conciertos", "videos", "fotos", "redes"];
 const trackIds = ["2mvtMnxyRxaSTgcYTV8JIe", "4SK5CTgzKEBu7pcsSjbqGs", "6c7xGiUPfB8iDrfQ9NJcxz", "7Io1Ws8fngOaPx6HTSKgkW", "2PFr2WppXicoSHknhx9yDS"];
-const checkedAssets = new Set();
-const copy = {
-  es: { title: "Lourdes Martín | Pop acústico desde Mallorca", skip: "Saltar al contenido", songs: "Canciones", photos: "Entre canciones", player: "Escucha a Lourdes Martín en Spotify" },
-  en: { title: "Lourdes Martín | Acoustic pop from Mallorca", skip: "Skip to content", songs: "Songs", photos: "Between songs", player: "Listen to Lourdes Martín on Spotify" },
-};
+const videoIds = ["bHIWU0SM74Y", "3O8ehu78l5U", "JZLp097PO_M", "1txHu0BC8Ws"];
+const profiles = [
+  "https://www.instagram.com/lourdesmartin15/",
+  "https://www.tiktok.com/@lourdes.martin",
+  "https://www.youtube.com/@lourdes.martin",
+  "https://open.spotify.com/artist/246Ag05j7yjMUiIAMJ70A7",
+];
+const retired = ["tinta", "amplificador", "recortes", "postmarked", "bedroom-floor", "blue-book", "tinta-editorial", "tinta-estudio"];
+const text = html => html.replace(/<script\b[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
 
-for (const [locale, text] of Object.entries(copy)) {
-  for (const concept of ["", ...concepts]) {
-    const isTinta = !concept || concept === "tinta";
-    const route = `/${locale}${concept ? `/${concept}` : ""}`;
-    const response = await fetch(base + route);
-    assert.equal(response.status, 200, route);
-    const html = await response.text();
-    assert.ok(html.includes(`<html lang="${locale}"`), `${route}: document language`);
-    assert.ok(html.includes(`data-design="${concept || "tinta"}"`), `${route}: expected variation`);
-    assert.ok(html.includes(`<title>${text.title}</title>`), `${route}: translated title`);
-    assert.ok(html.includes(text.skip) && html.includes(text.songs) && html.includes(text.photos), `${route}: translated body`);
-    assert.equal((html.match(/<h1\b/g) || []).length, 1, `${route}: one artist H1`);
-    assert.equal((html.match(/<main\b/g) || []).length, 1, `${route}: one main landmark`);
-    assert.ok(html.includes('name="viewport"'), `${route}: responsive viewport`);
-    assert.ok(!html.includes('class="language-switch"'), `${route}: Spanish public presentation has no language switch`);
-    assert.ok(!html.includes("/images/poster-"), `${route}: no concert archive in the selected simple structure`);
-    assert.ok(!/songs &amp; little things|made of<br\/>|keep the little things|Loud heart|Soft songs/i.test(html), `${route}: retired slogans`);
+const response = await fetch(base + route);
+assert.equal(response.status, 200, route);
+const html = await response.text();
 
-    const iframes = [...html.matchAll(/<iframe\b[^>]*>/g)].map(match => match[0]);
-    const animatedSignatures = [...html.matchAll(/<svg\b[^>]*class="[^"]*\bsignature-animated\b[^"]*"[\s\S]*?<\/svg>/g)].map(match => match[0]);
-    if (isTinta) {
-      assert.ok(!/<header\b/.test(html), `${route}: no header`);
-      assert.ok(!html.includes('class="variation-bar"'), `${route}: no variation bar`);
-      assert.ok(!html.includes('class="song-list"'), `${route}: custom song list replaced`);
-      assert.ok(!html.includes('class="player-toggle"'), `${route}: no player activation step`);
-      assert.ok(!html.includes("LM / Spotify"), `${route}: Spotify card label removed`);
-      const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || "";
-      const mainText = main.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
-      assert.ok(!/01\s*\/\s*(Música|Music)|02\s*\/\s*(Fotos|Photos)/.test(mainText), `${route}: numbered section eyebrows removed`);
-      const hero = html.match(/<section\b[^>]*\bid="home"[^>]*>([\s\S]*?)<\/section>/)?.[1];
-      assert.ok(hero, `${route}: artist hero present`);
-      assert.ok(!/Pop acústico|Acoustic pop|Mallorca/.test(hero), `${route}: hero eyebrow removed`);
-      assert.ok(!hero.includes("LOURDES MARTÍN — 01"), `${route}: hero margin label removed`);
-      const heading = hero.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] || "";
-      const headingText = heading.replace(/<svg\b[\s\S]*?<\/svg>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-      assert.equal(headingText, "Lourdes Martín", `${route}: readable artist heading independent of animation`);
-      assert.equal(iframes.length, 1, `${route}: one immediately rendered player`);
-      const player = iframes[0];
-      assert.ok(player.includes(`title="${text.player}"`), `${route}: translated player title`);
-      assert.ok(player.includes('width="100%"') && player.includes('height="352"'), `${route}: responsive player dimensions`);
-      const playerSource = player.match(/\bsrc="([^"]+)"/)?.[1];
-      assert.ok(playerSource, `${route}: player has a source`);
-      const playerUrl = new URL(playerSource.replaceAll("&amp;", "&"));
-      assert.equal(playerUrl.origin, "https://open.spotify.com", `${route}: Spotify player origin`);
-      assert.equal(playerUrl.pathname, "/embed/artist/246Ag05j7yjMUiIAMJ70A7", `${route}: artist player`);
-      assert.equal(playerUrl.searchParams.get("locale"), locale, `${route}: player locale`);
-      assert.ok(!playerUrl.searchParams.has("autoplay"), `${route}: no autoplay request`);
-      assert.equal(animatedSignatures.length, 1, `${route}: one animated hero signature`);
-      assert.ok(animatedSignatures[0].includes('aria-hidden="true"') && animatedSignatures[0].includes('focusable="false"'), `${route}: decorative signature does not replace the accessible heading`);
-    } else {
-      assert.ok(/<header\b/.test(html), `${route}: variant header retained`);
-      assert.ok(html.includes('class="variation-bar"'), `${route}: variant navigation retained`);
-      assert.equal(iframes.length, 0, `${route}: Spotify stays deferred`);
-      assert.equal(animatedSignatures.length, 0, `${route}: signature remains static`);
-      for (const id of trackIds) {
-        assert.ok(html.includes(`https://open.spotify.com/track/${id}`), `${route}: real track ${id}`);
-      }
-      for (const variation of concepts) {
-        assert.ok(html.includes(`href="/${locale}/${variation}"`), `${route}: same-language variation ${variation}`);
-      }
-      assert.ok(html.includes('aria-current="page"'), `${route}: current variation identified`);
-    }
-    for (const old of Object.keys(legacyConcepts)) {
-      assert.ok(!html.includes(`href="/${locale}/${old}"`), `${route}: no retired design link ${old}`);
-    }
+// Document
+assert.ok(html.includes('<html lang="es"'), "document language is Spanish");
+assert.ok(html.includes("<title>Lourdes Martín | Pop acústico desde Mallorca</title>"), "page title");
+assert.ok(html.includes('name="viewport"'), "responsive viewport");
+assert.ok(html.includes('data-design="estrella"'), "Estrella design is served");
+assert.ok(html.includes("Saltar al contenido"), "skip link");
+assert.equal((html.match(/<main\b/g) || []).length, 1, "one main landmark");
+const headings = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
+assert.equal(headings.length, 1, "one H1");
+assert.equal(text(headings[0][1]).trim(), "Lourdes Martín", "the H1 reads as the artist's name without the lettering image");
+for (const design of retired) assert.ok(!html.includes(`/${design}"`), `no link to the removed design ${design}`);
 
-    const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1];
-    assert.ok(footer, `${route}: artist footer present`);
-    assert.ok(/<footer\b[^>]*\bdata-visible="false"/.test(html), `${route}: footer motion waits for visibility`);
-    assert.ok(!/<button\b/.test(footer), `${route}: footer controls removed`);
+// Sections and navigation
+for (const id of sections) assert.ok(new RegExp(`<section\\b[^>]*\\bid="${id}"`).test(html), `section #${id}`);
+const nav = html.match(/<header\b[\s\S]*?<\/header>/)?.[0];
+assert.ok(nav, "site navigation present");
+for (const id of ["musica", "conciertos", "videos", "fotos", "redes"]) assert.ok(nav.includes(`href="#${id}"`), `navigation links to #${id}`);
+for (const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(html.includes(`id="${match[1]}"`), `anchor #${match[1]} has a target`);
 
-    for (const match of html.matchAll(/href="#([^"]+)"/g)) {
-      assert.ok(html.includes(`id="${match[1]}"`), `${route}: anchor ${match[1]}`);
-    }
-    for (const match of html.matchAll(/<img\b[^>]*>/g)) {
-      assert.ok(/\balt="[^"]*"/.test(match[0]), `${route}: image has an alt attribute`);
-      assert.ok(/\bwidth="\d+"/.test(match[0]) && /\bheight="\d+"/.test(match[0]), `${route}: image reserves its dimensions`);
-    }
-    for (const match of html.matchAll(/(?:src|href)="(\/[^"#]*)"/g)) {
-      const url = match[1].replaceAll("&amp;", "&");
-      if (!checkedAssets.has(url)) {
-        const asset = await fetch(base + url);
-        assert.equal(asset.status, 200, `${route}: ${url}`);
-        assert.ok((await asset.arrayBuffer()).byteLength > 0, `${route}: nonempty ${url}`);
-        checkedAssets.add(url);
-      }
-    }
-    console.log(`PASS ${route}: language, variation, content, music, footer, links, resources`);
-  }
+// Hero
+const hero = html.match(/<section\b[^>]*\bid="inicio"[\s\S]*?<\/section>/)?.[0] || "";
+const video = hero.match(/<video\b[^>]*>/)?.[0];
+assert.ok(video, "hero background video");
+for (const attribute of ["autoPlay", "muted", "loop", "playsInline"]) assert.ok(new RegExp(`\\b${attribute}\\b`, "i").test(video), `hero video is ${attribute}`);
+assert.ok(/\bposter="\/images\/hero-playa\.webp"/.test(video), "hero video has a still poster");
+
+// Music: every song links to Spotify, and only the artist player loads up front.
+for (const id of trackIds) assert.ok(html.includes(`https://open.spotify.com/track/${id}`), `track ${id}`);
+const iframes = [...html.matchAll(/<iframe\b[^>]*>/g)].map(match => match[0]);
+assert.equal(iframes.length, 1, "one player rendered up front; the vinyl and YouTube players wait for a press");
+const playerUrl = new URL(iframes[0].match(/\bsrc="([^"]+)"/)[1].replaceAll("&amp;", "&"));
+assert.equal(playerUrl.origin, "https://open.spotify.com", "Spotify player origin");
+assert.equal(playerUrl.pathname, "/embed/artist/246Ag05j7yjMUiIAMJ70A7", "artist player");
+assert.equal(playerUrl.searchParams.get("locale"), "es", "player in Spanish");
+assert.ok(!playerUrl.searchParams.has("autoplay"), "no autoplay request");
+assert.ok(/\bloading="lazy"/.test(iframes[0]) && /\btitle="[^"]+"/.test(iframes[0]), "player is lazy and titled");
+assert.ok(!html.includes("youtube-nocookie.com/embed") && !html.includes("embed/iframe-api"), "nothing from YouTube or the Spotify API loads before a press");
+
+// Concerts: either dated rows or the empty state, never a blank section.
+const concerts = html.match(/<section\b[^>]*\bid="conciertos"[\s\S]*?<\/section>/)?.[0] || "";
+assert.ok(/<time\b[^>]*dateTime="\d{4}-\d{2}-\d{2}"/i.test(concerts) || text(concerts).includes("ahora mismo no hay fechas"), "concert dates or the empty state");
+
+// Videos: the featured clip and the three curated videoclips, each with a watch link fallback.
+const videos = html.match(/<section\b[^>]*\bid="videos"[\s\S]*?<\/section>/)?.[0] || "";
+assert.ok(videos.includes(`ytimg.com%2Fvi%2F${videoIds[0]}`), "featured video poster");
+for (const id of videoIds.slice(1)) assert.ok(videos.includes(`https://www.youtube.com/watch?v=${id}`), `videoclip ${id}`);
+assert.ok(/aria-label="Reproducir: [^"]+"/.test(videos), "play control is labelled");
+
+// Socials, in the follow section and again in the footer.
+const follow = html.match(/<section\b[^>]*\bid="redes"[\s\S]*?<\/section>/)?.[0] || "";
+const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+assert.ok(footer, "footer present");
+for (const url of profiles) {
+  assert.ok(follow.includes(`href="${url}"`), `follow section links ${url}`);
+  assert.ok(footer.includes(`href="${url}"`), `footer links ${url}`);
 }
+for (const match of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) assert.ok(/\brel="noreferrer"/.test(match[0]), "external links do not leak the referrer");
 
-async function checkRedirect(path, target, status, cookie = "") {
-  const response = await fetch(base + path + "?source=review", { redirect: "manual", headers: { cookie } });
-  assert.equal(response.status, status, `${path}: redirect status`);
-  const location = new URL(response.headers.get("location"), base);
-  assert.equal(location.pathname, target, `${path}: redirect destination`);
+// Images and local resources
+const images = [...html.matchAll(/<img\b[^>]*>/g)].map(match => match[0]);
+assert.ok(images.length >= 15, "photo sections rendered");
+for (const image of images) {
+  assert.ok(/\balt="[^"]*"/.test(image), "image has an alt attribute");
+  assert.ok(/\bwidth="\d+"/.test(image) && /\bheight="\d+"/.test(image), "image reserves its dimensions");
+}
+const checked = new Set();
+for (const match of html.matchAll(/(?:src|href|poster)="(\/[^"#]*)"/g)) {
+  const url = match[1].replaceAll("&amp;", "&");
+  if (checked.has(url)) continue;
+  const asset = await fetch(base + url);
+  assert.equal(asset.status, 200, url);
+  assert.ok((await asset.arrayBuffer()).byteLength > 0, `nonempty ${url}`);
+  checked.add(url);
+}
+assert.equal((await fetch(base + "/brand/lourdes-martin-lettering.svg")).status, 200, "lettering used by the CSS mask");
+console.log(`PASS ${route}: document, sections, hero, music, concerts, videos, socials, ${images.length} images, ${checked.size} local resources`);
+
+// Routing: one public page. The root, the old English pages and the removed designs all land on it.
+async function checkRedirect(path) {
+  const redirect = await fetch(base + path + "?source=review", { redirect: "manual" });
+  assert.equal(redirect.status, 308, `${path}: permanent redirect`);
+  const location = new URL(redirect.headers.get("location"), base);
+  assert.equal(location.pathname, "/es", `${path}: lands on the Spanish page`);
   assert.equal(location.search, "?source=review", `${path}: query retained`);
 }
-
-// Spanish is the public entry language, including visitors with an older English preference.
-for (const cookie of ["", "lm-language=en", "lm-language=es", "lm-language=fr"]) {
-  await checkRedirect("/", "/es", 308, cookie);
-  for (const concept of concepts) await checkRedirect(`/${concept}`, `/es/${concept}`, concept === "tinta" ? 308 : 307, cookie);
+for (const path of ["/", "/en", "/en/tinta", ...retired.flatMap(design => [`/${design}`, `/es/${design}`])]) await checkRedirect(path);
+for (const path of ["/fr", "/es/missing", "/es/missing/deeper"]) {
+  const missing = await fetch(base + path);
+  assert.equal(missing.status, 404, path);
 }
-for (const [old, replacement] of Object.entries(legacyConcepts)) {
-  await checkRedirect(`/${old}`, `/es/${replacement}`, 308);
-  for (const locale of Object.keys(copy)) await checkRedirect(`/${locale}/${old}`, `/${locale}/${replacement}`, 308);
-}
-for (const route of ["/fr", "/fr/tinta", "/es/missing", "/en/missing", "/es/tinta/missing"]) {
-  const response = await fetch(base + route);
-  assert.equal(response.status, 404, route);
-  if (route.startsWith("/es/") || route.startsWith("/en/")) {
-    const html = await response.text();
-    const message = route.startsWith("/es/") ? "Esta página no está aquí." : "This page isn’t here.";
-    assert.ok(html.includes(message), `${route}: translated recovery content`);
-  }
-}
-console.log(`PASS redirects: Spanish entry, stale preferences, retired designs, query strings and invalid-route 404s. ${checkedAssets.size} linked resources checked.`);
-console.log("Browser layout, mobile overflow, playback, signature animation, footer motion and reduced-motion behavior require separate browser verification.");
+console.log(`PASS routing: root, English and ${retired.length} removed design names redirect to /es with their query; unknown routes are 404.`);
+console.log("Not covered here: layout, mobile overflow, animation, video and Spotify playback, photo dragging, reduced motion. Check those in a browser.");
