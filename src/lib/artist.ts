@@ -6,4 +6,8 @@ export const artist = {
   spotifyEmbed: "https://open.spotify.com/embed/artist/246Ag05j7yjMUiIAMJ70A7?utm_source=generator&theme=0",
   instagram: "https://www.instagram.com/lourdesmartin15/",
   instagramHandle: "@lourdesmartin15",
+  tiktok: "https://www.tiktok.com/@lourdes.martin",
+  tiktokHandle: "@lourdes.martin",
+  youtube: "https://www.youtube.com/@lourdes.martin",
+  youtubeHandle: "@lourdes.martin",
 } as const;
