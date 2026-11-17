@@ -11,8 +11,8 @@ export const isPreviewDeployment = process.env.VERCEL_ENV === "preview";
 export const seoCopy = {
   es: {
     title: "Lourdes Martín | Pop acústico desde Mallorca",
-    description: "Web oficial de Lourdes Martín, artista de pop acústico de Mallorca. Escucha sus canciones en Spotify y descubre sus fotos en Instagram.",
-    imageAlt: "Lourdes Martín en un collage de letras recortadas, rosas y papel de periódico sobre fondo burdeos",
+    description: "Web oficial de Lourdes Martín, artista de pop acústico de Mallorca. Canciones, videoclips, conciertos y fotos.",
+    imageAlt: "El nombre de Lourdes Martín escrito a mano en azul sobre una playa al atardecer, rodeado de estrellas",
   },
   en: {
     title: "Lourdes Martín | Acoustic pop from Mallorca",
@@ -55,7 +55,7 @@ export function artistStructuredData() {
         "@type": "MusicGroup", "@id": absoluteUrl("/#artist"),
         name: artist.name, genre: artist.genre, url: absoluteUrl("/es"),
         image: absoluteUrl("/images/lourdes-sunshine.webp"),
-        sameAs: [artist.spotify, artist.instagram],
+        sameAs: [artist.spotify, artist.instagram, artist.tiktok, artist.youtube],
       },
       {
         "@type": "WebSite", "@id": absoluteUrl("/#website"),

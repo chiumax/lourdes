@@ -1,0 +1,13 @@
+.stage { position:relative; }
+.burst { position:absolute; z-index:80; width:0; height:0; pointer-events:none; }
+.burst i { position:absolute; left:-11px; top:-11px; width:22px; height:22px; background:#efe4ae;
+  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  animation:fly .75s cubic-bezier(.15,.8,.3,1) both; }
+.burst i:nth-child(3n) { background:#ec76a3; }
+.burst i:nth-child(3n+1) { background:#8ab9ea; width:15px; height:15px; }
+.burst i:nth-child(4n) { background:#f9c5d9; }
+@keyframes fly {
+  from { transform:rotate(var(--angle)) translateY(0) scale(.2) rotate(0deg); opacity:1; }
+  70% { opacity:1; }
+  to { transform:rotate(var(--angle)) translateY(calc(var(--reach) * -1)) scale(1) rotate(200deg); opacity:0; }
+}
